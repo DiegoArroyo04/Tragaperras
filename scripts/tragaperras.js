@@ -9,8 +9,17 @@ window.addEventListener("load", function () {
     // Ocultar el preloader
     document.getElementById("preloader").style.display = "none";
 
+    //GIRAR CUANDO PULSE EL BOTON TIRAR
     document.getElementById("botonTirar").addEventListener('click', function () {
         girarCarretes();
+    });
+
+    //GIRAR CON EL ESPACIO
+    window.addEventListener('keydown', function (event) {
+        if (event.key === ' ') {
+            event.preventDefault(); // Prevenir el desplazamiento de la página
+            girarCarretes();
+        }
     });
 
 
