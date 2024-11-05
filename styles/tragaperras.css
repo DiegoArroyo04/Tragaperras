@@ -144,7 +144,7 @@ header {
     border-image-source: url('../assets/texturaArbol.jpg');
     border-image-slice: 800;
     border-image-repeat: round;
-    border-radius: 500px;
+    border-radius: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     margin: 2%;
 }
@@ -178,6 +178,26 @@ header {
     width: 100%;
     max-width: 150px;
     height: auto;
+}
+
+@keyframes girar {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-400%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Al añadir la clase 'girar' a la clase 'carrete' se activa la animación */
+.girar {
+    animation: girar 1s ease-in-out forwards;
+    /* Ajusta la duración y la velocidad de la animación */
 }
 
 .modal {
