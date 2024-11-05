@@ -9,69 +9,88 @@
 </head>
 
 <body>
+    <div id="preloader" class="preloader">
+        <img src="../assets/Preload.jpeg">
+    </div>
     <header>
         <div class="contentenedorVolverMain">
-            <img src="assets/Home.png" class="home">
-            <img src="assets/logo giraffe royale.png" class="logo">
+
+            <a href="#">
+                <img src="assets/Home.png" class="home">
+            </a>
+
+            <a href="main.html">
+                <img src="assets/logo giraffe royale.png" class="logo">
+            </a>
+
         </div>
 
         <h1>GIRAFFE ROYALE</h1>
+
         <div class="saldo">
-            <p id="saldo" class="saldo">Saldo:0€</p>
+
+            <h1 id="saldo" class="saldo">Saldo:0€</h1>
+
             <img src="assets/icono añadir.png">
 
         </div>
 
 
-        <div>
-
+        <div class="horaYConfi">
+            <h1 class="hora" id="hora" class="hora"></h1>
+            <img src="assets/configuracion.png">
         </div>
-        <p class="hora" id="hora" class="hora"></p>
+
+
 
 
     </header>
     <main>
-        <div id="contenedorJuego">
-            <div id="carrete1">
-                <img src="assets/iconoGirafa.png">
-                <img src="assets/iconoArbol.png">
-                <img src="assets/iconoLoro.png">
-                <img src="assets/iconoPlatanos.png">
-                <img src="assets/iconoFlor.png">
-            </div>
-            <div id="carrete2">
-                <img src="assets/iconoGirafa.png">
-                <img src="assets/iconoArbol.png">
-                <img src="assets/iconoLoro.png">
-                <img src="assets/iconoPlatanos.png">
-                <img src="assets/iconoFlor.png">
-            </div>
-            <div id="carretete3">
-                <img src="assets/iconoGirafa.png">
-                <img src="assets/iconoArbol.png">
-                <img src="assets/iconoLoro.png">
-                <img src="assets/iconoPlatanos.png">
-                <img src="assets/iconoFlor.png">
-            </div>
-
-            <div id="modalDepositar">
-                <form>
-                    <h1>Depositar</h1>
-                    <input type="number" placeholder="Introduce la cantidad que deseas depositar">
-                    <button type="submit">Depositar</button>
-                </form>
-                <button id="retirar">Retirar</button>
+        <div id="contenedorJuego" class="contenedorJuego">
+            <div class="marco">
+                <div id="carrete1" class="carrete">
+                    <img src="assets/iconoGirafa.png">
+                    <img src="assets/iconoArbol.png">
+                    <img src="assets/iconoLoro.png">
+                    <img src="assets/iconoPlatanos.png">
+                    <img src="assets/iconoFlor.png">
+                </div>
+                <div id="carrete2" class="carrete">
+                    <img src="assets/iconoGirafa.png">
+                    <img src="assets/iconoArbol.png">
+                    <img src="assets/iconoLoro.png">
+                    <img src="assets/iconoPlatanos.png">
+                    <img src="assets/iconoFlor.png">
+                </div>
+                <div id="carretete3" class="carrete">
+                    <img src="assets/iconoGirafa.png">
+                    <img src="assets/iconoArbol.png">
+                    <img src="assets/iconoLoro.png">
+                    <img src="assets/iconoPlatanos.png">
+                    <img src="assets/iconoFlor.png">
+                </div>
 
             </div>
-            <div id="modalRetirar">
-                <form>
-                    <h1>Retirar</h1>
-                    <input type="number" placeholder="Introduce la cantidad que deseas retirar">
-                    <button type="submit">Retirar</button>
-                </form>
-                <button id="depositar">Depositar</button>
+            <button class="botonTirar">TIRAR</button>
+        </div>
 
-            </div>
+        <div id="modalDepositar" class="modal">
+            <form>
+                <h1>Depositar</h1>
+                <input type="number" placeholder="Introduce la cantidad que deseas depositar">
+                <button type="submit">Depositar</button>
+            </form>
+            <button id="retirar">Retirar</button>
+
+        </div>
+        <div id="modalRetirar" class="modal">
+            <form>
+                <h1>Retirar</h1>
+                <input type="number" placeholder="Introduce la cantidad que deseas retirar">
+                <button type="submit">Retirar</button>
+            </form>
+            <button id="depositar">Depositar</button>
+
         </div>
     </main>
 
@@ -80,7 +99,7 @@
             <img src="assets/juegasegurocasino.png" alt="Iconos Juego Seguro">
         </a>
         <p>© 2024 Giraffe Royale Casino</p>
-        <img src="assets/logo giraffe royale.png">
+        <img src="assets/logo giraffe royale.png" class="logo">
     </footer>
 
 
