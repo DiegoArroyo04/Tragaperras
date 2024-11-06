@@ -42,8 +42,8 @@ body {
 }
 
 .home {
-    width: 3vw;
-    height: 5vh;
+    width: 7vw;
+    height: auto;
     margin-right: 2vw;
 
 }
@@ -86,6 +86,13 @@ header h1 {
 .saldo img {
     width: 2vw;
     height: 4vh;
+
+}
+
+.saldo img:hover {
+
+    cursor: pointer;
+
 }
 
 .saldo p {
@@ -112,7 +119,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("../assets/header.jpg");
+    background-color: #bcb6b6;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("../assets/texturaHojas.jpg");
     background-size: cover;
     background-position: center top;
     max-width: 100%;
