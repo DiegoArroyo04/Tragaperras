@@ -1,17 +1,16 @@
 window.addEventListener("load", function () {
     //Cargar hora por primera vez
-    horaCargada = cargarHora();
-
-    //Cargar hora cada segundo
-    setInterval(cargarHora, 1000);
+    cargarHoraInicial();
 
 
-    // Ocultar el preloader
-    document.getElementById("preloader").style.display = "none";
+
+
+
 
     //GIRAR CUANDO PULSE EL BOTON TIRAR
     document.getElementById("botonTirar").addEventListener('click', function () {
         girarCarretes();
+
     });
 
     //GIRAR CON EL ESPACIO
@@ -23,15 +22,44 @@ window.addEventListener("load", function () {
     });
 
 
+
 });
 
+function cargarHoraInicial() {
+    // Pedir permiso al usuario para obtener su ubicación
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                // Actualizar la hora cada segundo
+                setInterval(() => cargarHora(timeZone), 1000);
+            },
+            (error) => {
+                console.error("Error obteniendo la ubicación:", error);
+                // Si no se puede obtener la ubicación, usar la zona horaria local por defecto
+                const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                setInterval(() => cargarHora(timeZone), 1000);
+            }
+        );
+    } else {
+        console.error("La geolocalización no es soportada por este navegador.");
+    }
+}
 
-function cargarHora() {
-    var horaActual = new Date();
-    var texto = document.getElementById('hora');
-    texto.innerHTML = horaActual.getHours() + " : " + horaActual.getMinutes() + " : " + horaActual.getSeconds();
-    horaCargada = true;
-    return horaCargada;
+function cargarHora(zonaHoraria) {
+
+
+    var horaActual = new Date().toLocaleTimeString('es-ES', {
+        timeZone: zonaHoraria,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+
+    document.getElementById('hora').innerHTML = horaActual;
+
+    // Ocultar el preloader cuando cargue la hora una vez
+    document.getElementById("preloader").style.display = "none";
 }
 
 function girarCarretes() {
