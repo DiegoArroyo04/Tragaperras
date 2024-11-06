@@ -22,6 +22,11 @@ window.addEventListener("load", function () {
     });
 
 
+    //AÑADIR SALDO
+    document.getElementById("añadirSaldo").addEventListener('click', function () {
+        document.getElementById("modalDepositar").style.display = "flex";
+    });
+
 
 });
 
