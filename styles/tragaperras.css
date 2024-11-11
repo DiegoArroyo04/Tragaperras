@@ -1,12 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 
+:root {
+    --primary-color: #5bba6f;
+    --secundary-color: #FFFFFF;
+
+}
+
+
+
 
 /* General body styling */
 body {
     overflow-x: hidden;
     font-family: 'Lilita One';
-    background-color: #5bba6f;
-    color: #FFFFFF;
+    background-color: var(--primary-color);
+    color: var(--secundary-color);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -86,6 +94,7 @@ header h1 {
 .saldo img {
     width: 2vw;
     height: 4vh;
+    margin-left: 2%;
 
 }
 
@@ -113,14 +122,18 @@ header h1 {
 .horaYConfi img {
     width: 2vw;
     height: 4vh;
+    margin-left: 10%;
+}
+
+.ajustesModal {
+    display: none;
 }
 
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #bcb6b6;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("../assets/texturaHojas.jpg");
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("../assets/header.jpg");
     background-size: cover;
     background-position: center top;
     max-width: 100%;
@@ -209,8 +222,70 @@ header {
 
 }
 
+.depositar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2%;
+}
+
 .modal {
     display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--fondoModal);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo para el contenido del modal */
+.contenidoModal {
+    background-image: url("../assets/fondo\ modal.jpg");
+    background-size: cover;
+    background-position: center top;
+    padding: 2%;
+    border-radius: 10px;
+    width: 30%;
+    color: #F4A261;
+    text-align: center;
+    border: 3px solid #3A5A40;
+    -webkit-text-stroke: 0.1vh #003049;
+
+}
+
+/* BOTON DE CIERRE MODAL */
+.cerrarModal {
+    position: absolute;
+    top: 32%;
+    right: 35%;
+    font-size: 1.5rem;
+    color: var(--modal-text-color);
+    cursor: pointer;
+}
+
+/* Button styling */
+button,
+input {
+    font-family: 'Lilita One';
+    background-color: #FFCB77;
+    color: #333333;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto;
+    margin-top: 2%;
+    -webkit-text-stroke: 0;
+}
+
+button:hover {
+    background-color: #F4A261;
+
 }
 
 footer {

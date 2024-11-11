@@ -12,7 +12,7 @@
     <div id="preloader" class="preloader">
         <img src="assets/Preload.jpeg">
     </div>
-    <header>
+    <header id="header">
         <div class="contentenedorVolverMain">
 
             <a href="#">
@@ -31,7 +31,7 @@
 
             <h1 id="saldo" class="saldo">Saldo:0€</h1>
 
-            <img src="assets/icono añadir.png" id="añadirSaldo">
+            <img src="assets/añadir.png" id="añadirSaldo">
 
         </div>
 
@@ -41,7 +41,9 @@
             <img src="assets/configuracion.png">
         </div>
 
-
+        <div id="ajustesModal" class="ajustesModal">
+            <button id="daltonico">Modo daltonico</button>
+        </div>
 
 
     </header>
@@ -62,7 +64,7 @@
                     <img src="assets/iconoPlatanos.png">
                     <img src="assets/iconoFlor.png">
                 </div>
-                <div id="carretete3" class="carrete">
+                <div id="carrete3" class="carrete">
                     <img src="assets/iconoGirafa.png">
                     <img src="assets/iconoArbol.png">
                     <img src="assets/iconoLoro.png">
@@ -75,12 +77,16 @@
         </div>
 
         <div id="modalDepositar" class="modal">
-            <form>
-                <h1>Depositar</h1>
-                <input type="number" placeholder="Introduce la cantidad que deseas depositar">
-                <button type="submit">Depositar</button>
-            </form>
-            <button id="retirar">Retirar</button>
+            <div class="contenidoModal">
+                <span id="cerrarModal" class="cerrarModal">&times;</span>
+                <form id="depositar" class="depositar">
+                    <h1>DEPOSITAR</h1>
+                    <input type="number" placeholder="Introduce la cantidad que deseas depositar">
+                    <button type="submit" id="depositarBtn">Depositar</button>
+                    <button id="retirar">Retirar</button>
+                </form>
+
+            </div>
 
         </div>
         <div id="modalRetirar" class="modal">
@@ -92,6 +98,8 @@
             <button id="depositar">Depositar</button>
 
         </div>
+
+
     </main>
 
     <footer>

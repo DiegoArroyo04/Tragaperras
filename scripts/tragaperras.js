@@ -27,6 +27,24 @@ window.addEventListener("load", function () {
         document.getElementById("modalDepositar").style.display = "flex";
     });
 
+    //CERRAR MODAL AL HACER CLICK EN LA X
+    document.getElementById("cerrarModal").addEventListener("click", function () {
+        document.getElementById("modalDepositar").style.display = "none";
+    })
+
+    // Cierra el modal al hacer clic fuera del contenido
+    window.addEventListener("click", (event) => {
+        if (event.target == document.getElementById("modalDepositar")) {
+            document.getElementById("modalDepositar").style.display = "none";
+        }
+    });
+
+    //
+    document.getElementById("daltonico").addEventListener('click', function () {
+        document.getElementById("header").style.backgroundImage = 'linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("./assets/headerDaltonico.jpg")';
+
+    });
+
 
 });
 
