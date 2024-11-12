@@ -56,8 +56,9 @@ window.addEventListener("load", function () {
         if (!isNaN(deposito) && deposito > 0) {
             saldo += deposito;
             document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+            mostrarError("Has depositado " + deposito + "€");
         } else {
-            alert("Formato de deposito no válido");
+            mostrarError("Formato de deposito no válido");
         }
 
 
@@ -75,12 +76,12 @@ window.addEventListener("load", function () {
         if (!isNaN(retiro) && retiro > 0 && retiro <= saldo) {
             saldo -= retiro; // Resta el saldo retirado
             document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
-            alert("Has retirado " + retiro + "€");
+            mostrarError("Has retirado " + retiro + "€");
         } else if (retiro > saldo) {
-            alert("No tienes suficiente saldo para retirar esa cantidad.");
+            mostrarError("No tienes suficiente saldo para retirar esa cantidad.");
 
         } else {
-            alert("Por favor, ingresa una cantidad válida.");
+            mostrarError("Por favor, ingresa una cantidad válida.");
 
         }
 
@@ -100,6 +101,11 @@ window.addEventListener("load", function () {
         document.getElementById("modalRetirar").style.display = "none";
 
     })
+
+    // Cerrar el modal de error al hacer clic en la "X"
+    document.getElementById("cerrarModalError").addEventListener("click", function () {
+        document.getElementById("modalError").style.display = "none";
+    });
 
 
 
