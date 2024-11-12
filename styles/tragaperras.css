@@ -4,10 +4,13 @@
     --primary-color: #5bba6f;
     --secundary-color: #FFFFFF;
 
+
 }
 
 
-
+* {
+    box-sizing: border-box;
+}
 
 /* General body styling */
 body {
@@ -28,7 +31,6 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,7 +65,7 @@ body {
 
 
 
-header h1 {
+h1 {
     font-family: 'Lilita One';
     font-size: 2vw;
     background: linear-gradient(180deg, #fdde89, #f86b0c);
@@ -80,10 +82,14 @@ header h1 {
 .hora {
     font-family: 'Lilita One';
     font-size: 1.5vw;
+    max-width: 100%;
+    width: 90%;
     background: linear-gradient(180deg, #fdde89, #f86b0c);
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-stroke: 0.10vh #003049;
+
+
 }
 
 .saldo {
@@ -117,6 +123,8 @@ header h1 {
     display: flex;
     align-items: center;
     padding: 0 2%;
+    width: 15%;
+
 }
 
 .horaYConfi img {
@@ -135,10 +143,10 @@ header {
     justify-content: space-between;
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("../assets/header.jpg");
     background-size: cover;
-    background-position: center top;
     max-width: 100%;
     height: 10%;
     padding: 1% 5%;
+
 }
 
 .contenedorJuego {
@@ -222,11 +230,13 @@ header {
 
 }
 
-.depositar {
+.depositarYRetirar {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 2%;
+    width: 100%;
+    height: 100%;
 }
 
 .modal {
@@ -237,7 +247,7 @@ header {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--fondoModal);
+    background-color: rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: center;
 }
@@ -248,45 +258,86 @@ header {
     background-size: cover;
     background-position: center top;
     padding: 2%;
+    padding-top: 0;
     border-radius: 10px;
     width: 30%;
-    color: #F4A261;
     text-align: center;
     border: 3px solid #3A5A40;
-    -webkit-text-stroke: 0.1vh #003049;
+
 
 }
 
 /* BOTON DE CIERRE MODAL */
 .cerrarModal {
     position: absolute;
-    top: 32%;
-    right: 35%;
-    font-size: 1.5rem;
-    color: var(--modal-text-color);
+    top: 38%;
+    right: 36%;
+    font-size: 2rem;
     cursor: pointer;
+    font-family: 'Lilita One';
+    background: linear-gradient(180deg, #fdde89, #f86b0c);
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 0.10vh #003049;
+}
+
+.botonesModal {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputModal {
+    width: 100%;
+    text-align: center;
+}
+
+.inputModal::placeholder {
+    text-align: center;
+    color: #003049;
+
+}
+
+.inputModal:focus {
+    outline: 2px solid #F4A261;
+    box-shadow: 0 0 8px rgba(244, 162, 97, 0.5), 0 0 12px rgba(244, 162, 97, 0.3);
+    transition: outline-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*ELIMINA LAS FLECHAS DEL INPUT NUMERICO*/
+.inputModal::-webkit-outer-spin-button,
+.inputModal::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.botonModal {
+    width: 40%;
 }
 
 /* Button styling */
-button,
-input {
+.botonModal,
+.inputModal {
     font-family: 'Lilita One';
     background-color: #FFCB77;
-    color: #333333;
+    color: #003049;
     padding: 0.8rem 1.5rem;
-    border: none;
+    border: 2px solid #003049;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: auto;
     margin-top: 2%;
     -webkit-text-stroke: 0;
+
 }
 
-button:hover {
+.botonModal:hover,
+.inputModal:hover {
     background-color: #F4A261;
 
 }
+
+
 
 footer {
     display: flex;

@@ -1,10 +1,7 @@
 window.addEventListener("load", function () {
+    var saldo = 0;
     //Cargar hora por primera vez
     cargarHoraInicial();
-
-
-
-
 
 
     //GIRAR CUANDO PULSE EL BOTON TIRAR
@@ -25,17 +22,96 @@ window.addEventListener("load", function () {
     //AÑADIR SALDO
     document.getElementById("añadirSaldo").addEventListener('click', function () {
         document.getElementById("modalDepositar").style.display = "flex";
+
+        //SI PULSAMOS EN EL BOTON DE RETIRAR SE ABRE EL MODAL DE RETIRAR
+        document.getElementById("abrirModalRetirar").addEventListener('click', function () {
+            document.getElementById("modalDepositar").style.display = "none";
+            document.getElementById("inputDeposito").value = "";
+            document.getElementById("modalRetirar").style.display = "flex";
+        });
+
+        // SI PULSAMOS EN EL BOTON DE DEPOSITAR EN EL MODAL DE RETIRAR  SE ABRE EL MODAL DE DEPOSITAR
+        document.getElementById("abrirModalDepositar").addEventListener('click', function () {
+
+
+
+            document.getElementById("modalRetirar").style.display = "none";
+
+            document.getElementById("inputRetiro").value = "";
+
+            document.getElementById("modalDepositar").style.display = "flex";
+
+
+        });
     });
 
-    //CERRAR MODAL AL HACER CLICK EN LA X
-    document.getElementById("cerrarModal").addEventListener("click", function () {
+    //GUARDAR SALDO Y ACTUALIZARLO
+    document.getElementById("depositarBtn").addEventListener('click', function () {
+
+
+        // CONVERTIR A DECIMAL
+        var deposito = parseFloat(document.getElementById("inputDeposito").value);
+
+
+        if (!isNaN(deposito) && deposito > 0) {
+            saldo += deposito;
+            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+        } else {
+            alert("Formato de deposito no válido");
+        }
+
+
         document.getElementById("modalDepositar").style.display = "none";
+        document.getElementById("inputDeposito").value = "";
+    });
+
+    // RETIRAR SALDO Y ACTUALIZARLO
+    document.getElementById("retirarBtn").addEventListener('click', function () {
+
+        //CONVERTIR A DECIMAL
+        var retiro = parseFloat(document.getElementById("inputRetiro").value);
+
+        // Verifica si el valor es válido y que no sea mayor que el saldo
+        if (!isNaN(retiro) && retiro > 0 && retiro <= saldo) {
+            saldo -= retiro; // Resta el saldo retirado
+            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+            alert("Has retirado " + retiro + "€");
+        } else if (retiro > saldo) {
+            alert("No tienes suficiente saldo para retirar esa cantidad.");
+
+        } else {
+            alert("Por favor, ingresa una cantidad válida.");
+
+        }
+
+        // Cierra el modal después del retiro
+        document.getElementById("modalRetirar").style.display = "none";
+        document.getElementById("inputRetiro").value = "";
+    });
+
+
+    //CERRAR MODAL AL HACER CLICK EN LA X
+    document.getElementById("cerrarModalDepositar").addEventListener("click", function () {
+        document.getElementById("modalDepositar").style.display = "none";
+
     })
+    //CERRAR MODAL AL HACER CLICK EN LA X
+    document.getElementById("cerrarModalRetirar").addEventListener("click", function () {
+        document.getElementById("modalRetirar").style.display = "none";
+
+    })
+
+
 
     // Cierra el modal al hacer clic fuera del contenido
     window.addEventListener("click", (event) => {
         if (event.target == document.getElementById("modalDepositar")) {
             document.getElementById("modalDepositar").style.display = "none";
+
+        }
+        if (event.target == document.getElementById("modalRetirar")) {
+            document.getElementById("modalRetirar").style.display = "none";
+
         }
     });
 
@@ -103,4 +179,10 @@ function girarCarretes() {
 
     }
 
+}
+
+// Mostrar mensaje de error en el modal
+function mostrarError(mensaje) {
+    document.getElementById('mensajeError').textContent = mensaje;
+    document.getElementById('modalError').style.display = "flex";
 }

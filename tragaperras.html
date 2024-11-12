@@ -78,25 +78,39 @@
 
         <div id="modalDepositar" class="modal">
             <div class="contenidoModal">
-                <span id="cerrarModal" class="cerrarModal">&times;</span>
-                <form id="depositar" class="depositar">
+                <span id="cerrarModalDepositar" class="cerrarModal">&times;</span>
+                <div id="depositar" class="depositarYRetirar">
                     <h1>DEPOSITAR</h1>
-                    <input type="number" placeholder="Introduce la cantidad que deseas depositar">
-                    <button type="submit" id="depositarBtn">Depositar</button>
-                    <button id="retirar">Retirar</button>
-                </form>
-
+                    <input type="number" id="inputDeposito" class="inputModal"
+                        placeholder="Introduce la cantidad que deseas depositar">
+                    <div class="botonesModal">
+                        <button id="depositarBtn" class="botonModal">Depositar</button>
+                        <button id="abrirModalRetirar" class="botonModal">Retirar</button>
+                    </div>
+                </div>
             </div>
-
         </div>
-        <div id="modalRetirar" class="modal">
-            <form>
-                <h1>Retirar</h1>
-                <input type="number" placeholder="Introduce la cantidad que deseas retirar">
-                <button type="submit">Retirar</button>
-            </form>
-            <button id="depositar">Depositar</button>
 
+        <div id="modalRetirar" class="modal">
+            <div class="contenidoModal">
+                <span id="cerrarModalRetirar" class="cerrarModal">&times;</span>
+                <div id="retirar" class="depositarYRetirar">
+                    <h1>RETIRAR</h1>
+                    <input type="number" id="inputRetiro" class="inputModal"
+                        placeholder="Introduce la cantidad que deseas retirar">
+                    <div class="botonesModal">
+                        <button id="retirarBtn" class="botonModal">Retirar</button>
+                        <button id="abrirModalDepositar" class="botonModal">Depositar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalError" class="modalError">
+            <div class="contenidoModalError">
+                <span id="cerrarModalError" class="cerrarModalError">&times;</span>
+                <p id="mensajeError"></p>
+            </div>
         </div>
 
 
