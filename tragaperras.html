@@ -38,12 +38,10 @@
 
         <div class="horaYConfi">
             <h1 class="hora" id="hora" class="hora"></h1>
-            <img src="assets/configuracion.png">
+            <img id="configuracion" src="assets/configuracion.png">
         </div>
 
-        <div id="ajustesModal" class="ajustesModal">
-            <button id="daltonico">Modo daltonico</button>
-        </div>
+
 
 
     </header>
@@ -84,6 +82,7 @@
                     <input type="number" id="inputDeposito" class="inputModal"
                         placeholder="Introduce la cantidad que deseas depositar">
                     <div class="botonesModal">
+
                         <button id="depositarBtn" class="botonModal">Depositar</button>
                         <button id="abrirModalRetirar" class="botonModal">Retirar</button>
                     </div>
@@ -113,6 +112,23 @@
             </div>
         </div>
 
+
+        <div id="modalAjustes" class="modal">
+            <div class="contenidoModalAjustes">
+                <span id="cerrarModalAjustes" class="cerrarModal">&times;</span>
+                <h2>Ajustes</h2>
+                <div class="opcionAjustes">
+                    <img src="assets/iconoEspaña.png" alt="Idioma" class="iconoAjustes">
+                    <h3 id="idioma">Idioma:</h3>
+                </div>
+                <div class="opcionAjustes">
+                    <img src="assets/modo_oscuro.png" alt="Modo Oscuro" class="iconoAjustes">
+                    <h3 id="modoOscuro">Modo Oscuro:</h3>
+
+
+                </div>
+            </div>
+        </div>
 
     </main>
 

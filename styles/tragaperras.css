@@ -3,6 +3,7 @@
 :root {
     --primary-color: #5bba6f;
     --secundary-color: #FFFFFF;
+    --dark-bg-color: #1a1a1a;
 
 
 }
@@ -407,6 +408,10 @@ header {
     }
 }
 
+.modo-oscuro {
+    filter: grayscale(1) brightness(0.8) contrast(1.2);
+    background-color: var(--dark-bg-color);
+}
 
 footer {
     display: flex;

@@ -119,13 +119,20 @@ window.addEventListener("load", function () {
             document.getElementById("modalRetirar").style.display = "none";
 
         }
+        if (event.target == document.getElementById("modalError")) {
+            document.getElementById("modalError").style.display = "none";
+
+        }
     });
 
-    //
-    document.getElementById("daltonico").addEventListener('click', function () {
-        document.getElementById("header").style.backgroundImage = 'linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("./assets/headerDaltonico.jpg")';
+    //AJUSTES
 
+    //MODO OSCURO
+    document.getElementById("configuracion").addEventListener("click", function () {
+        document.body.classList.toggle("modo-oscuro");
     });
+
+
 
 
 });
