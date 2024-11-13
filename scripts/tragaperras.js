@@ -212,6 +212,9 @@ function cargarHora(zonaHoraria) {
 
 function girarCarretes(carretes) {
 
+    //GIRAMOS CADA IMAGEN 
+
+
 
     // Generamos 3 números aleatorios para cada carrete (de 1 a 15)
     let numerosAleatorios = [
@@ -234,18 +237,62 @@ function girarCarretes(carretes) {
     let carrete2 = document.getElementById("carrete2").getElementsByTagName("img");
     let carrete3 = document.getElementById("carrete3").getElementsByTagName("img");
 
-    // Actualizamos las imágenes de cada carrete
-    carrete1[0].src = "assets/" + carretes[0][numerosAleatorios[0]];
-    carrete1[1].src = "assets/" + carretes[0][numerosAleatorios[1]];
-    carrete1[2].src = "assets/" + carretes[0][numerosAleatorios[2]];
+    // Agregar la clase 'girar' a cada carrete
 
-    carrete2[0].src = "assets/" + carretes[1][numerosAleatorios[3]];
-    carrete2[1].src = "assets/" + carretes[1][numerosAleatorios[4]];
-    carrete2[2].src = "assets/" + carretes[1][numerosAleatorios[5]];
+    for (i = 0; i < carrete1.length; i++) {
+        carrete1[i].classList.add('girar');
+    }
 
-    carrete3[0].src = "assets/" + carretes[2][numerosAleatorios[6]];
-    carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
-    carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
+    for (i = 0; i < carrete2.length; i++) {
+        carrete2[i].classList.add('girar');
+    }
+
+    for (i = 0; i < carrete3.length; i++) {
+        carrete3[i].classList.add('girar');
+    }
+
+
+
+
+    // ESPERO UN SEGUNDO PARA QUE COMIENCEN LOS CARRETES A GIRAR Y YA DECIDO GANADOR
+    setTimeout(() => {
+        //COMBINACIONES A COMPROBAR
+        carrete1[0].src = "assets/" + carretes[0][numerosAleatorios[0]];
+        carrete1[1].src = "assets/" + carretes[0][numerosAleatorios[1]];
+        carrete1[2].src = "assets/" + carretes[0][numerosAleatorios[2]];
+
+        carrete2[0].src = "assets/" + carretes[1][numerosAleatorios[3]];
+        carrete2[1].src = "assets/" + carretes[1][numerosAleatorios[4]];
+        carrete2[2].src = "assets/" + carretes[1][numerosAleatorios[5]];
+
+        carrete3[0].src = "assets/" + carretes[2][numerosAleatorios[6]];
+        carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
+        carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
+
+    }, 2000);
+
+
+    // Después de 6 segundos (que es la duración de la animación), actualizamos las imágenes
+    setTimeout(() => {
+        // Actualizamos las imágenes con las nuevas aleatorias
+
+        // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
+        // Agregar la clase 'girar' a cada carrete
+
+        for (i = 0; i < carrete1.length; i++) {
+            carrete1[i].classList.remove('girar');
+        }
+
+        for (i = 0; i < carrete2.length; i++) {
+            carrete2[i].classList.remove('girar');
+        }
+
+        for (i = 0; i < carrete3.length; i++) {
+            carrete3[i].classList.remove('girar');
+        }
+
+
+    }, 6000); // Tiempo de duración de la animación (6 segundos)
 
 
 }

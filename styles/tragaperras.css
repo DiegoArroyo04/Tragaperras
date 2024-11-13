@@ -467,11 +467,11 @@ header {
 
 @keyframes moverCarrete {
     0% {
-        transform: translateY(100%);
+        transform: translateY(0%);
     }
 
     50% {
-        transform: translateY(-1400%);
+        transform: translateY(-1200%);
     }
 
     100% {
