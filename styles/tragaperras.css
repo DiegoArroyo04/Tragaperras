@@ -380,26 +380,33 @@ header {
     background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent), url("../assets/header.jpg");
     background-size: cover;
     max-width: 100%;
-    height: 10%;
     padding: 1% 5%;
 
 }
 
 .contenedorJuego {
+    position: relative;
     background-image: url("../assets/Fondo\ tragaperras.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 75%;
-    max-width: 100%;
-    margin: 5% auto;
-    padding: 1.5%;
+    margin: 2% auto;
+    padding: 2vh;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+}
+
+.contenedorTituloJuego {
+    position: absolute;
+    top: 0.7%;
+    left: 50%;
+    transform: translateX(-50%);
 
 }
 
@@ -416,57 +423,61 @@ header {
 }
 
 .carrete {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10%;
     margin-right: 2%;
     border-radius: 15px;
     background: #f2d7c3;
     border: 4px solid #3a5a40;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    width: 150px;
+    width: 7.81vw;
     max-width: 100%;
+    height: 43vh;
 }
+
+
+.carrete img {
+
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+
+}
+
 
 .botonTirar {
     background-image: url('../assets/texturaArbol.jpg');
     background-size: cover;
     background-position: center;
     font-family: 'Lilita One';
-    font-size: 1.5vw;
+    font-size: 2vw;
     color: #f2d7c3;
     border-radius: 20px;
-    width: 20%;
+    width: 15vw;
+    padding: 1vh 1vw;
+    margin-top: 2vh;
 }
 
-.contenedorJuego img {
-
-    width: 100%;
-    max-width: 150px;
-    height: auto;
+.girar {
+    animation: moverCarrete 6s ease-in-out infinite;
 }
 
-@keyframes girar {
+
+
+@keyframes moverCarrete {
     0% {
-        transform: translateY(0);
+        transform: translateY(100%);
     }
 
     50% {
-        transform: translateY(-400%);
+        transform: translateY(-1400%);
     }
 
     100% {
-        transform: translateY(0);
+        transform: translateY(-0%);
     }
 }
-
-
-.girar {
-    animation: girar 1s ease-in-out forwards;
-
-}
-
-
 
 footer {
     display: flex;

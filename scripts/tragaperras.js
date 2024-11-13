@@ -3,10 +3,23 @@ window.addEventListener("load", function () {
     //Cargar hora por primera vez
     cargarHoraInicial();
 
+    //JUEGO
+    var girafa = "iconoGirafa.png";
+    var arbol = "iconoArbol.png";
+    var loro = "iconoLoro.png";
+    var platanos = "iconoPlatanos.png";
+    var flor = "iconoFlor.png";
+    // Matriz de imágenes de los carretes
+    var carretes = [
+        [girafa, arbol, loro, platanos, flor, flor, platanos, platanos, loro, arbol, flor, platanos, flor, loro, flor],
+        [girafa, arbol, loro, platanos, flor, flor, platanos, platanos, loro, arbol, flor, platanos, flor, loro, flor],
+        [girafa, arbol, loro, platanos, flor, flor, platanos, platanos, loro, arbol, flor, platanos, flor, loro, flor]
+    ];
 
     //GIRAR CUANDO PULSE EL BOTON TIRAR
     document.getElementById("botonTirar").addEventListener('click', function () {
-        girarCarretes();
+        girarCarretes(carretes);
+
 
     });
 
@@ -14,7 +27,7 @@ window.addEventListener("load", function () {
     window.addEventListener('keydown', function (event) {
         if (event.key === ' ') {
             event.preventDefault(); // Prevenir el desplazamiento de la página
-            girarCarretes();
+            girarCarretes(carretes);
         }
     });
 
@@ -197,25 +210,47 @@ function cargarHora(zonaHoraria) {
     document.getElementById("preloader").style.display = "none";
 }
 
-function girarCarretes() {
-    const carretes = document.getElementsByClassName('carrete');
+function girarCarretes(carretes) {
 
 
-    for (let i = 0; i < carretes.length; i++) {
-        // Añadir la clase 'girar' a cada carrete
-        carretes[i].classList.add('girar');
+    // Generamos 3 números aleatorios para cada carrete (de 1 a 15)
+    let numerosAleatorios = [
+        Math.floor(Math.random() * 15),  // Primer carrete Icono 1
+        Math.floor(Math.random() * 15),  // Primer carrete Icono 2
+        Math.floor(Math.random() * 15),  // Primer carrete Icono 3
 
+        Math.floor(Math.random() * 15),  // Segundo carrete Icono 1
+        Math.floor(Math.random() * 15),  // Segundo carrete Icono 2
+        Math.floor(Math.random() * 15),  // Tercer carrete Icono 3
 
+        Math.floor(Math.random() * 15),  // Primer carrete Icono 1
+        Math.floor(Math.random() * 15),  // Segundo carrete Icono 2
+        Math.floor(Math.random() * 15),  // Tercer carrete Icono 3
 
-        // Después de 1 segundo, quita la clase 'girar' para permitir que se pueda volver a girar
-        setTimeout(() => {
-            carretes[i].classList.remove('girar');
-            // Para mostrar el resultado, se puede añadir lógica aquí para seleccionar una imagen al azar o mostrar el resultado final.
-        }, 1000); // Asegúrate de que este tiempo coincida con la duración de la animación en CSS
+    ];
 
-    }
+    // Acceder a los carretes y actualizar las imágenes
+    let carrete1 = document.getElementById("carrete1").getElementsByTagName("img");
+    let carrete2 = document.getElementById("carrete2").getElementsByTagName("img");
+    let carrete3 = document.getElementById("carrete3").getElementsByTagName("img");
+
+    // Actualizamos las imágenes de cada carrete
+    carrete1[0].src = "assets/" + carretes[0][numerosAleatorios[0]];
+    carrete1[1].src = "assets/" + carretes[0][numerosAleatorios[1]];
+    carrete1[2].src = "assets/" + carretes[0][numerosAleatorios[2]];
+
+    carrete2[0].src = "assets/" + carretes[1][numerosAleatorios[3]];
+    carrete2[1].src = "assets/" + carretes[1][numerosAleatorios[4]];
+    carrete2[2].src = "assets/" + carretes[1][numerosAleatorios[5]];
+
+    carrete3[0].src = "assets/" + carretes[2][numerosAleatorios[6]];
+    carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
+    carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
+
 
 }
+
+
 
 // Mostrar mensaje de error en el modal
 function mostrarError(mensaje) {
