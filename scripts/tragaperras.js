@@ -107,6 +107,11 @@ window.addEventListener("load", function () {
         document.getElementById("modalError").style.display = "none";
     });
 
+    // Cerrar el modal de error al hacer clic en la "X"
+    document.getElementById("cerrarModalAjustes").addEventListener("click", function () {
+        document.getElementById("modalAjustes").style.display = "none";
+    });
+
 
 
     // Cierra el modal al hacer clic fuera del contenido
@@ -123,13 +128,31 @@ window.addEventListener("load", function () {
             document.getElementById("modalError").style.display = "none";
 
         }
+        if (event.target == document.getElementById("modalAjustes")) {
+            document.getElementById("modalAjustes").style.display = "none";
+
+        }
     });
 
     //AJUSTES
-
-    //MODO OSCURO
     document.getElementById("configuracion").addEventListener("click", function () {
+        document.getElementById("modalAjustes").style.display = "flex";
+    });
+    //MODO OSCURO
+    document.getElementById("modoOscuro").addEventListener("click", function () {
         document.body.classList.toggle("modo-oscuro");
+        // Cambia la imagen del icono de modo oscuro según el estado actual
+        const iconoModoOscuro = document.getElementById("modoOscuro"); // ID del elemento de icono
+
+        if (document.body.classList.contains("modo-oscuro")) {
+            document.getElementById("textoModoOscuro").innerHTML = "Cambiar A Modo Color:"
+            iconoModoOscuro.src = "./assets/modoClaro.png";// Icono para el modo claro
+
+        } else {
+            document.getElementById("textoModoOscuro").innerHTML = "Cambiar A Modo Oscuro:"
+            iconoModoOscuro.src = "./assets/modoOscuro.png"; // Icono para el modo oscuro
+        }
+
     });
 
 
