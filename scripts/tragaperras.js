@@ -212,10 +212,6 @@ function cargarHora(zonaHoraria) {
 
 function girarCarretes(carretes) {
 
-    //GIRAMOS CADA IMAGEN 
-
-
-
     // Generamos 3 números aleatorios para cada carrete (de 1 a 15)
     let numerosAleatorios = [
         Math.floor(Math.random() * 15),  // Primer carrete Icono 1
@@ -237,8 +233,8 @@ function girarCarretes(carretes) {
     let carrete2 = document.getElementById("carrete2").getElementsByTagName("img");
     let carrete3 = document.getElementById("carrete3").getElementsByTagName("img");
 
-    // Agregar la clase 'girar' a cada carrete
 
+    // Agregar la clase 'girar' a cada icono
     for (i = 0; i < carrete1.length; i++) {
         carrete1[i].classList.add('girar');
     }
@@ -254,9 +250,10 @@ function girarCarretes(carretes) {
 
 
 
-    // ESPERO UN SEGUNDO PARA QUE COMIENCEN LOS CARRETES A GIRAR Y YA DECIDO GANADOR
+    // ESPERO UN SEGUNDO PARA QUE COMIENCEN LOS CARRETES A GIRAR 
     setTimeout(() => {
         //COMBINACIONES A COMPROBAR
+        //CAMBIO LAS IMAGENES ALEATORIAMENTE 
         carrete1[0].src = "assets/" + carretes[0][numerosAleatorios[0]];
         carrete1[1].src = "assets/" + carretes[0][numerosAleatorios[1]];
         carrete1[2].src = "assets/" + carretes[0][numerosAleatorios[2]];
@@ -269,12 +266,12 @@ function girarCarretes(carretes) {
         carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
         carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
 
-    }, 2000);
+    }, 1000);
 
 
-    // Después de 6 segundos (que es la duración de la animación), actualizamos las imágenes
+
     setTimeout(() => {
-        // Actualizamos las imágenes con las nuevas aleatorias
+
 
         // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
         // Agregar la clase 'girar' a cada carrete
@@ -291,8 +288,23 @@ function girarCarretes(carretes) {
             carrete3[i].classList.remove('girar');
         }
 
+        //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
+        for (i = 3; i < carrete1.length; i++) {
+            var aleatorio = Math.floor(Math.random() * 15);
+            carrete1[i].src = "assets/" + carretes[0][aleatorio];
+        }
 
-    }, 6000); // Tiempo de duración de la animación (6 segundos)
+        for (i = 3; i < carrete2.length; i++) {
+            var aleatorio = Math.floor(Math.random() * 15);
+            carrete2[i].src = "assets/" + carretes[1][aleatorio];
+        }
+
+        for (i = 3; i < carrete3.length; i++) {
+            var aleatorio = Math.floor(Math.random() * 15);
+            carrete3[i].src = "assets/" + carretes[2][aleatorio];
+        }
+
+    }, 3000); // Tiempo de duración de la animación (3 segundos)
 
 
 }

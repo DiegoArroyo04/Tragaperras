@@ -460,7 +460,7 @@ header {
 }
 
 .girar {
-    animation: moverCarrete 6s ease-in-out infinite;
+    animation: moverCarrete 3s ease-in-out infinite;
 }
 
 
