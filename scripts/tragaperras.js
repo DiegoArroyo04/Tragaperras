@@ -125,6 +125,11 @@ window.addEventListener("load", function () {
         document.getElementById("modalAjustes").style.display = "none";
     });
 
+    // Cerrar el modal de error al hacer clic en la "X"
+    document.getElementById("cerrarModalTablaPremios").addEventListener("click", function () {
+        document.getElementById("modalTablaPremios").style.display = "none";
+    });
+
 
 
     // Cierra el modal al hacer clic fuera del contenido
@@ -143,6 +148,10 @@ window.addEventListener("load", function () {
         }
         if (event.target == document.getElementById("modalAjustes")) {
             document.getElementById("modalAjustes").style.display = "none";
+
+        }
+        if (event.target == document.getElementById("modalTablaPremios")) {
+            document.getElementById("modalTablaPremios").style.display = "none";
 
         }
     });
@@ -168,6 +177,10 @@ window.addEventListener("load", function () {
 
     });
 
+    document.getElementById("info").addEventListener("click", function () {
+
+        document.getElementById("modalTablaPremios").style.display = "flex";
+    });
 
 
 

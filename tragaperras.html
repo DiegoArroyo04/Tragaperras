@@ -105,7 +105,11 @@
                 </div>
 
             </div>
-            <button class="botonTirar" id="botonTirar">TIRAR</button>
+            <div class="footerJuego">
+                <img src="/assets/iconoInformacion.png" id="info" class="icono">
+                <button class="botonTirar" id="botonTirar">TIRAR</button>
+            </div>
+
         </div>
 
         <div id="modalDepositar" class="modal">
@@ -153,14 +157,63 @@
                 <h2>Ajustes</h2>
                 <div class="opcionAjustes">
                     <h3 id="idioma">Cambiar Idioma A Ingles:</h3>
-                    <img src="assets/iconoIngles.png" alt="Idioma" class="iconoAjustes">
+                    <img src="assets/iconoIngles.png" alt="Idioma" class="icono">
                 </div>
                 <div class="opcionAjustes">
                     <h3 id="textoModoOscuro">Cambiar A Modo Oscuro:</h3>
-                    <img src="assets/modoOscuro.png" id="modoOscuro" alt="Modo Oscuro" class="iconoAjustes">
+                    <img src="assets/modoOscuro.png" id="modoOscuro" alt="Modo Oscuro" class="icono">
                 </div>
             </div>
         </div>
+
+
+
+        <div id="modalTablaPremios" class="tablaPremios ">
+            <span id="cerrarModalTablaPremios" class="cerrarModalError">&times;</span>
+            <h2>Tabla de Premios</h2>
+            <table class="tablaEstilos">
+                <tr>
+                    <th>Combinación</th>
+                    <th><img src="assets/iconoGirafa.png" alt="Jirafa"> Jirafa</th>
+                    <th><img src="assets/iconoArbol.png" alt="Árbol"> Árbol</th>
+                    <th><img src="assets/iconoLoro.png" alt="Loro"> Loro</th>
+                    <th><img src="assets/iconoPlatanos.png" alt="Plátano"> Plátano</th>
+                    <th><img src="assets/iconoFlor.png" alt="Flor"> Flor</th>
+
+                </tr>
+                <tr>
+                    <td>Línea central</td>
+                    <td>x100</td>
+                    <td>x30</td>
+                    <td>x20</td>
+                    <td>x10</td>
+                    <td>x5</td>
+                </tr>
+                <tr>
+                    <td>Línea superior/inferior</td>
+                    <td>x50</td>
+                    <td>x15</td>
+                    <td>x10</td>
+                    <td>x5</td>
+                    <td>x2.5</td>
+                </tr>
+                <tr>
+                    <td>Línea en Diagonal</td>
+                    <td>x50</td>
+                    <td>x15</td>
+                    <td>x10</td>
+                    <td>x5</td>
+                    <td>x2.5</td>
+                </tr>
+                <tr>
+                    <td>Activador de Giros</td>
+                    <td colspan="5">Si aparecen 3 Jirafas, se activan 10 giros gratuitos donde el multiplicador
+                        será el que pone en la jirafa ¡Para todos los simbolos! .</td>
+                </tr>
+            </table>
+        </div>
+
+
 
     </main>
 
