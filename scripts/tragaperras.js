@@ -1,3 +1,4 @@
+var estaGirando = false;
 window.addEventListener("load", function () {
     var saldo = 0;
     //Cargar hora por primera vez
@@ -224,6 +225,9 @@ function cargarHora(zonaHoraria) {
 }
 
 function girarCarretes(carretes) {
+    if (estaGirando == true) return; // Si ya está girando, no hacer nada
+
+    estaGirando = true; // Bloquea el evento mientras está girando
 
     // Generamos 3 números aleatorios para cada carrete (de 1 a 15)
     let numerosAleatorios = [
@@ -240,7 +244,8 @@ function girarCarretes(carretes) {
         Math.floor(Math.random() * 15),  // Tercer carrete Icono 3
 
     ];
-
+    //Actualizamos texto
+    document.getElementById("textoTragaperras").innerHTML = "";
     // Acceder a los carretes y actualizar las imágenes
     let carrete1 = document.getElementById("carrete1").getElementsByTagName("img");
     let carrete2 = document.getElementById("carrete2").getElementsByTagName("img");
@@ -316,7 +321,8 @@ function girarCarretes(carretes) {
             var aleatorio = Math.floor(Math.random() * 15);
             carrete3[i].src = "assets/" + carretes[2][aleatorio];
         }
-
+        estaGirando = false;
+        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
     }, 3000); // Tiempo de duración de la animación (3 segundos)
 
 
