@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 :root {
     --primary-color: #5bba6f;
@@ -143,6 +142,8 @@ h1 {
 .icono {
     width: 2vw;
     height: 4vh;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    margin-bottom: 3%;
 
 }
 
@@ -568,6 +569,7 @@ header {
     flex-direction: column;
 
 }
+
 
 
 

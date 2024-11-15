@@ -1,5 +1,11 @@
 var estaGirando = false;
+var musica = new Audio('assets/musicaTragaperras.mp3');
+musica.loop = true;
+var musicaSuena = true;
+
 window.addEventListener("load", function () {
+
+
     var saldo = 0;
     //Cargar hora por primera vez
     cargarHoraInicial();
@@ -10,6 +16,7 @@ window.addEventListener("load", function () {
     var loro = "iconoLoro.png";
     var platanos = "iconoPlatanos.png";
     var flor = "iconoFlor.png";
+
     // Matriz de imágenes de los carretes
     var carretes = [
         [girafa, arbol, loro, platanos, flor, flor, platanos, platanos, loro, arbol, flor, platanos, flor, loro, flor],
@@ -183,6 +190,21 @@ window.addEventListener("load", function () {
         document.getElementById("modalTablaPremios").style.display = "flex";
     });
 
+    //SONIDO
+    document.getElementById("sonido").addEventListener("click", function () {
+        //PAUSAR LA MUSICA
+        if (musicaSuena == true) {
+            musica.pause();
+            musicaSuena = false;
+            document.getElementById("sonido").src = "./assets/sonidoMute.png";
+        } else {
+            //REAUNUDAR LA MUSICA
+            musica.play();
+            musicaSuena = true;
+            document.getElementById("sonido").src = "./assets/sonido.png";
+        }
+
+    });
 
 
 });
@@ -222,6 +244,12 @@ function cargarHora(zonaHoraria) {
 
     // Ocultar el preloader cuando cargue la hora una vez
     document.getElementById("preloader").style.display = "none";
+    //CARGAR MUSICA AL CARGAR LA PAGINA
+    if (musicaSuena == true) {
+        musica.play();
+    }
+
+
 }
 
 function girarCarretes(carretes) {
@@ -245,7 +273,7 @@ function girarCarretes(carretes) {
 
     ];
     //Actualizamos texto
-    document.getElementById("textoTragaperras").innerHTML = "";
+    document.getElementById("textoTragaperras").innerHTML = "¡BUENA SUERTE!";
     // Acceder a los carretes y actualizar las imágenes
     let carrete1 = document.getElementById("carrete1").getElementsByTagName("img");
     let carrete2 = document.getElementById("carrete2").getElementsByTagName("img");
