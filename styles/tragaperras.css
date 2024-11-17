@@ -542,6 +542,40 @@ header {
     padding: 2vh;
     align-items: center;
 
+
+}
+
+.modalSonido {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    width: 13vw;
+    height: 4vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    bottom: 25%;
+    right: 67%;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.modalSonido img {
+    width: 10%;
+    transition: transform 0.3s ease, filter 0.3s ease;
+
+}
+
+.modalSonido img:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.valorVolumen {
+    display: inline-block;
+    width: 2.5em;
+    text-align: center;
+    font-size: 1em;
+    color: white;
 }
 
 .contenedorBotones {

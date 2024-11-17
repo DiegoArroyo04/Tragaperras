@@ -1,4 +1,9 @@
 var estaGirando = false;
+// Referencia a la barra de volumen y el texto del volumen
+const barraVolumen = document.getElementById("barraVolumen");
+const valorVolumen = document.getElementById("valorVolumen");
+var volumen = barraVolumen.value / 100; // Convertir el valor de 0-100 a 0.0-1.0
+
 var musica = new Audio('assets/musicaTragaperras.mp3');
 musica.loop = true;
 var musicaSuena = true;
@@ -144,24 +149,25 @@ window.addEventListener("load", function () {
     window.addEventListener("click", (event) => {
         if (event.target == document.getElementById("modalDepositar")) {
             document.getElementById("modalDepositar").style.display = "none";
-
         }
         if (event.target == document.getElementById("modalRetirar")) {
             document.getElementById("modalRetirar").style.display = "none";
-
         }
         if (event.target == document.getElementById("modalError")) {
             document.getElementById("modalError").style.display = "none";
-
         }
         if (event.target == document.getElementById("modalAjustes")) {
             document.getElementById("modalAjustes").style.display = "none";
-
         }
         if (event.target == document.getElementById("modalTablaPremios")) {
             document.getElementById("modalTablaPremios").style.display = "none";
-
         }
+
+        if (event.target == document.getElementById("modalSonido")) {
+            document.getElementById("modalSonido").style.display = "none";
+        }
+
+
     });
 
     //AJUSTES
@@ -192,23 +198,72 @@ window.addEventListener("load", function () {
 
     //SONIDO
     document.getElementById("sonido").addEventListener("click", function () {
+
+
+
         //PAUSAR LA MUSICA
         if (musicaSuena == true) {
             musica.pause();
             musicaSuena = false;
             document.getElementById("sonido").src = "./assets/sonidoRojo.png";
+            document.getElementById("iconoSonidoModal").src = "./assets/sonidoMuteRojo.png";
+            //ABRO EL MODAL DE SONIDO
+            document.getElementById("modalSonido").style.display = "flex";
+
+
         } else {
             //REAUNUDAR LA MUSICA
             musica.play();
             musicaSuena = true;
             document.getElementById("sonido").src = "./assets/sonido.png";
+            //CIERRO EL MODAL DE SONIDO
+            document.getElementById("modalSonido").style.display = "none";
         }
+
 
     });
 
 
-});
 
+    // Ajusta el volumen de todos los audios de la página
+    barraVolumen.addEventListener("input", function () {
+        volumen = barraVolumen.value / 100; // Convertir el valor de 0-100 a 0.0-1.0
+        valorVolumen.textContent = barraVolumen.value; // Mostrar el valor actual
+
+        musica.play();
+        musica.volume = volumen;
+        document.getElementById("iconoSonidoModal").src = "./assets/sonido.png";
+        document.getElementById("sonido").src = "./assets/sonido.png"
+
+        if (volumen == 0.0) {
+            document.getElementById("iconoSonidoModal").src = "./assets/sonidoMuteRojo.png";
+            document.getElementById("sonido").src = "./assets/sonidoRojo.png"
+        }
+
+    });
+
+    document.getElementById("iconoSonidoModal").addEventListener("click", function () {
+
+
+        //PAUSAR LA MUSICA
+        if (musicaSuena == true) {
+            musica.pause();
+            musicaSuena = false;
+            document.getElementById("sonido").src = "./assets/sonidoRojo.png";
+            document.getElementById("iconoSonidoModal").src = "./assets/sonidoMuteRojo.png";
+
+
+
+        } else {
+            //REAUNUDAR LA MUSICA
+            musica.play();
+            musicaSuena = true;
+            document.getElementById("sonido").src = "./assets/sonido.png";
+            document.getElementById("iconoSonidoModal").src = "./assets/sonido.png";
+        }
+
+    });
+});
 function cargarHoraInicial() {
     // Pedir permiso al usuario para obtener su ubicación
     if (navigator.geolocation) {
@@ -258,6 +313,7 @@ function girarCarretes(carretes) {
     estaGirando = true; // Bloquea el evento mientras está girando
 
     var sonidoCarrete = new Audio('assets/spin.mp3');
+    sonidoCarrete.volume = volumen;
 
 
 
@@ -428,6 +484,9 @@ function girarCarretes(carretes) {
 
                 sonidoCarrete.play();
 
+                //DEPUES DE TODAS LAS ANIMACIONES ACTIVAMOS QUE SE PUEDA VOLVER A TIRAR
+                estaGirando = false;
+                document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
 
 
             }, 3000); // Tiempo de duración de la animación (3 segundos)
@@ -438,9 +497,6 @@ function girarCarretes(carretes) {
 
 
 
-        //DEPUES DE TODAS LAS ANIMACIONES ACTIVAMOS QUE SE PUEDA VOLVER A TIRAR
-        estaGirando = false;
-        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
 
 
 
@@ -457,3 +513,5 @@ function mostrarError(mensaje) {
     document.getElementById('mensajeError').textContent = mensaje;
     document.getElementById('modalError').style.display = "flex";
 }
+
+
