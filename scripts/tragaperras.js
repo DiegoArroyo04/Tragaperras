@@ -257,6 +257,7 @@ function girarCarretes(carretes) {
 
     estaGirando = true; // Bloquea el evento mientras está girando
 
+    var sonidoCarrete = new Audio('assets/spin.mp3');
 
 
 
@@ -277,23 +278,17 @@ function girarCarretes(carretes) {
     ];
     //Actualizamos texto
     document.getElementById("textoTragaperras").innerHTML = "¡BUENA SUERTE!";
+
+
     // Acceder a los carretes y actualizar las imágenes
     let carrete1 = document.getElementById("carrete1").getElementsByTagName("img");
     let carrete2 = document.getElementById("carrete2").getElementsByTagName("img");
     let carrete3 = document.getElementById("carrete3").getElementsByTagName("img");
 
 
-    // Agregar la clase 'girar' a cada icono
+    // Agregar la clase 'girar' a cada icono del carrete 1
     for (i = 0; i < carrete1.length; i++) {
         carrete1[i].classList.add('girar');
-    }
-
-    for (i = 0; i < carrete2.length; i++) {
-        carrete2[i].classList.add('girar');
-    }
-
-    for (i = 0; i < carrete3.length; i++) {
-        carrete3[i].classList.add('girar');
     }
 
 
@@ -307,13 +302,6 @@ function girarCarretes(carretes) {
         carrete1[1].src = "assets/" + carretes[0][numerosAleatorios[1]];
         carrete1[2].src = "assets/" + carretes[0][numerosAleatorios[2]];
 
-        carrete2[0].src = "assets/" + carretes[1][numerosAleatorios[3]];
-        carrete2[1].src = "assets/" + carretes[1][numerosAleatorios[4]];
-        carrete2[2].src = "assets/" + carretes[1][numerosAleatorios[5]];
-
-        carrete3[0].src = "assets/" + carretes[2][numerosAleatorios[6]];
-        carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
-        carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
 
     }, 2000);
 
@@ -323,19 +311,13 @@ function girarCarretes(carretes) {
 
 
         // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
-        // Agregar la clase 'girar' a cada carrete
+
 
         for (i = 0; i < carrete1.length; i++) {
             carrete1[i].classList.remove('girar');
         }
 
-        for (i = 0; i < carrete2.length; i++) {
-            carrete2[i].classList.remove('girar');
-        }
 
-        for (i = 0; i < carrete3.length; i++) {
-            carrete3[i].classList.remove('girar');
-        }
 
         //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
         for (i = 3; i < carrete1.length; i++) {
@@ -352,14 +334,118 @@ function girarCarretes(carretes) {
             var aleatorio = Math.floor(Math.random() * 15);
             carrete3[i].src = "assets/" + carretes[2][aleatorio];
         }
-        estaGirando = false;
-        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
 
-        var sonidoCarrete = new Audio('assets/spin.mp3');
         sonidoCarrete.play();
 
 
+
+        //ANIMACION CARRETE 2
+        for (i = 0; i < carrete2.length; i++) {
+            carrete2[i].classList.add('girar');
+        }
+
+
+        // ESPERO DOS SEGUNDOS PARA QUE COMIENCEN LOS CARRETES A GIRAR Y NO SE VEA EL CAMBIO DE IMAGEN
+        setTimeout(() => {
+            //COMBINACIONES A COMPROBAR
+            //CAMBIO LAS IMAGENES ALEATORIAMENTE 
+            carrete2[0].src = "assets/" + carretes[1][numerosAleatorios[3]];
+            carrete2[1].src = "assets/" + carretes[1][numerosAleatorios[4]];
+            carrete2[2].src = "assets/" + carretes[1][numerosAleatorios[5]];
+
+
+        }, 2000);
+        setTimeout(() => {
+
+
+            // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
+
+
+            for (i = 0; i < carrete2.length; i++) {
+                carrete2[i].classList.remove('girar');
+            }
+
+            //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
+            for (i = 3; i < carrete1.length; i++) {
+                var aleatorio = Math.floor(Math.random() * 15);
+                carrete1[i].src = "assets/" + carretes[0][aleatorio];
+            }
+
+            for (i = 3; i < carrete2.length; i++) {
+                var aleatorio = Math.floor(Math.random() * 15);
+                carrete2[i].src = "assets/" + carretes[1][aleatorio];
+            }
+
+            for (i = 3; i < carrete3.length; i++) {
+                var aleatorio = Math.floor(Math.random() * 15);
+                carrete3[i].src = "assets/" + carretes[2][aleatorio];
+            }
+
+            sonidoCarrete.play();
+
+            //ANIMACION CARRETE 3
+            for (i = 0; i < carrete3.length; i++) {
+                carrete3[i].classList.add('girar');
+            }
+
+
+            // ESPERO DOS SEGUNDOS PARA QUE COMIENCEN LOS CARRETES A GIRAR Y NO SE VEA EL CAMBIO DE IMAGEN
+            setTimeout(() => {
+                //COMBINACIONES A COMPROBAR
+                //CAMBIO LAS IMAGENES ALEATORIAMENTE 
+                carrete3[0].src = "assets/" + carretes[2][numerosAleatorios[6]];
+                carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
+                carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
+
+
+
+            }, 2000);
+            setTimeout(() => {
+
+
+                // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
+
+
+                for (i = 0; i < carrete3.length; i++) {
+                    carrete3[i].classList.remove('girar');
+                }
+
+                //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
+                for (i = 3; i < carrete1.length; i++) {
+                    var aleatorio = Math.floor(Math.random() * 15);
+                    carrete1[i].src = "assets/" + carretes[0][aleatorio];
+                }
+
+                for (i = 3; i < carrete2.length; i++) {
+                    var aleatorio = Math.floor(Math.random() * 15);
+                    carrete2[i].src = "assets/" + carretes[1][aleatorio];
+                }
+
+                for (i = 3; i < carrete3.length; i++) {
+                    var aleatorio = Math.floor(Math.random() * 15);
+                    carrete3[i].src = "assets/" + carretes[2][aleatorio];
+                }
+
+                sonidoCarrete.play();
+
+
+
+            }, 3000); // Tiempo de duración de la animación (3 segundos)
+
+
+
+        }, 3000); // Tiempo de duración de la animación (3 segundos)
+
+
+
+        //DEPUES DE TODAS LAS ANIMACIONES ACTIVAMOS QUE SE PUEDA VOLVER A TIRAR
+        estaGirando = false;
+        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+
+
+
     }, 3000); // Tiempo de duración de la animación (3 segundos)
+
 
 
 }
