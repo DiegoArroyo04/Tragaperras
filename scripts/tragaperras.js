@@ -196,7 +196,7 @@ window.addEventListener("load", function () {
         if (musicaSuena == true) {
             musica.pause();
             musicaSuena = false;
-            document.getElementById("sonido").src = "./assets/sonidoMute.png";
+            document.getElementById("sonido").src = "./assets/sonidoRojo.png";
         } else {
             //REAUNUDAR LA MUSICA
             musica.play();
@@ -257,6 +257,9 @@ function girarCarretes(carretes) {
 
     estaGirando = true; // Bloquea el evento mientras está girando
 
+
+
+
     // Generamos 3 números aleatorios para cada carrete (de 1 a 15)
     let numerosAleatorios = [
         Math.floor(Math.random() * 15),  // Primer carrete Icono 1
@@ -296,7 +299,7 @@ function girarCarretes(carretes) {
 
 
 
-    // ESPERO UN SEGUNDO PARA QUE COMIENCEN LOS CARRETES A GIRAR 
+    // ESPERO DOS SEGUNDOS PARA QUE COMIENCEN LOS CARRETES A GIRAR Y NO SE VEA EL CAMBIO DE IMAGEN
     setTimeout(() => {
         //COMBINACIONES A COMPROBAR
         //CAMBIO LAS IMAGENES ALEATORIAMENTE 
@@ -312,7 +315,7 @@ function girarCarretes(carretes) {
         carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
         carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
 
-    }, 1000);
+    }, 2000);
 
 
 
@@ -351,6 +354,11 @@ function girarCarretes(carretes) {
         }
         estaGirando = false;
         document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+
+        var sonidoCarrete = new Audio('assets/spin.mp3');
+        sonidoCarrete.play();
+
+
     }, 3000); // Tiempo de duración de la animación (3 segundos)
 
 

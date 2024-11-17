@@ -473,7 +473,7 @@ header {
 
 .contenedorJuego {
     position: relative;
-    background-image: url("../assets/Fondo\ tragaperras.jpeg");
+    background-image: url("../assets/fondoTragaperras.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -502,11 +502,12 @@ header {
     display: flex;
     padding: 1%;
     border: 30px solid;
-    border-image-source: url('../assets/texturaArbol.jpg');
+    border-image-source: url('../assets/texturaArbol.png');
     border-image-slice: 800;
     border-image-repeat: round;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     margin: 2%;
+    background: var(--primary-color);
 }
 
 .carrete {
