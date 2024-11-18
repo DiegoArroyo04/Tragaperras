@@ -163,12 +163,23 @@ window.addEventListener("load", function () {
             document.getElementById("modalTablaPremios").style.display = "none";
         }
 
-        if (event.target == document.getElementById("modalSonido")) {
-            document.getElementById("modalSonido").style.display = "none";
+        if (event.target == document.getElementById("modalSonidoPantalla")) {
+            document.getElementById("modalSonidoPantalla").style.display = "none";
         }
 
 
     });
+
+    window.addEventListener("scroll", (event) => {
+
+        //ESCONDER MODAL DE SONIDO AL HACER SCROLL
+        const modal = document.getElementById("modalSonidoPantalla");
+        if (modal.style.display == "flex") {
+            modal.style.display = "none";
+        }
+
+    });
+
 
     //AJUSTES
     document.getElementById("configuracion").addEventListener("click", function () {
@@ -208,7 +219,7 @@ window.addEventListener("load", function () {
             document.getElementById("sonido").src = "./assets/sonidoRojo.png";
             document.getElementById("iconoSonidoModal").src = "./assets/sonidoMuteRojo.png";
             //ABRO EL MODAL DE SONIDO
-            document.getElementById("modalSonido").style.display = "flex";
+            document.getElementById("modalSonidoPantalla").style.display = "flex";
 
 
         } else {
@@ -217,7 +228,7 @@ window.addEventListener("load", function () {
             musicaSuena = true;
             document.getElementById("sonido").src = "./assets/sonido.png";
             //CIERRO EL MODAL DE SONIDO
-            document.getElementById("modalSonido").style.display = "none";
+            document.getElementById("modalSonidoPantalla").style.display = "none";
         }
 
 
