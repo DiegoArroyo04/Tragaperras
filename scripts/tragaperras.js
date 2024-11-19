@@ -12,11 +12,47 @@ window.addEventListener("load", function () {
 
 
     var saldo = 0.00;
-    var creditos = 0.00;
+    var creditos = 0;
+    var apuesta = 20;
     //Cargar hora por primera vez
     cargarHoraInicial();
 
     //JUEGO
+    //APUESTAS
+    document.getElementById("aumentarApuesta").addEventListener("click", function () {
+
+        //SI LA APUESTA ES MENOR DE DOSCIENTOS CREDITOS AUMENTAMOS LA APUESTA DE 20 EN 20 
+        if (apuesta < 200) {
+            apuesta += 20;
+            document.getElementById("apuesta").innerHTML = apuesta;
+        } else if (apuesta >= 200 && apuesta < 1000) {
+            //SI LA APUESTA ESTA ENTRE 200 Y 1000 CREDITOS AUMENTAMOS DE 100 EN 100 
+            apuesta += 100;
+            document.getElementById("apuesta").innerHTML = apuesta;
+        } else if (apuesta >= 1000 && apuesta < 2500) {
+            //SI LA APUESTA ESTA ENTRE 1000 Y 2500 CREDITOS AUMENTAMOS DE 500 EN 500 
+            apuesta += 500;
+            document.getElementById("apuesta").innerHTML = apuesta;
+        } else if (apuesta >= 2500 && apuesta < 10000) {
+            //SI LA APUESTA ESTA ENTRE 2500 Y 10000 CREDITOS AUMENTAMOS DE 2500 EN 2500 
+            apuesta += 2500;
+            document.getElementById("apuesta").innerHTML = apuesta;
+        }
+
+        //SI LA APUESTA ES LA MAXIMA CAMBIAMOS EL ICONO Y MOSTRAMOS MENSAJE 
+        if (apuesta == 10000) {
+            document.getElementById("aumentarApuesta").src = "./assets/aumentarApuestaMaxima.png";
+            document.getElementById("textoTragaperras").innerHTML = "¡MAXIMA APUESTA ALCANZADA!";
+            setTimeout(() => {
+                document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+            }, 2000);
+
+
+        }
+
+    });
+
+
     var girafa = "iconoGirafa.png";
     var arbol = "iconoArbol.png";
     var loro = "iconoLoro.png";
@@ -241,6 +277,7 @@ window.addEventListener("load", function () {
             document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
             document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
             document.getElementById("creditosInfo").innerHTML = "Saldo Actual:" + creditos;
+            document.getElementById("creditosTotales").innerHTML = creditos;
 
         } else if (eurosACreditos > saldo) {
 
@@ -276,6 +313,7 @@ window.addEventListener("load", function () {
             document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
             document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
             document.getElementById("creditosInfo").innerHTML = "Saldo Actual:" + creditos;
+            document.getElementById("creditosTotales").innerHTML = creditos;
 
         } else if (creditosAEuros > creditos) {
 
