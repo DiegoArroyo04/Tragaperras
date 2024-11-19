@@ -11,7 +11,8 @@ var musicaSuena = true;
 window.addEventListener("load", function () {
 
 
-    var saldo = 0;
+    var saldo = 0.00;
+    var creditos = 0.00;
     //Cargar hora por primera vez
     cargarHoraInicial();
 
@@ -81,7 +82,10 @@ window.addEventListener("load", function () {
 
         if (!isNaN(deposito) && deposito > 0) {
             saldo += deposito;
+            //SALDO PARA HEADER
             document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+            //EN EL MODAL DE CREDITOS APARECERA EL SALDO ACTUAL 
+            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
             mostrarError("Has depositado " + deposito + "€");
         } else {
             mostrarError("Formato de deposito no válido");
@@ -102,6 +106,7 @@ window.addEventListener("load", function () {
         if (!isNaN(retiro) && retiro > 0 && retiro <= saldo) {
             saldo -= retiro; // Resta el saldo retirado
             document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
             mostrarError("Has retirado " + retiro + "€");
         } else if (retiro > saldo) {
             mostrarError("No tienes suficiente saldo para retirar esa cantidad.");
@@ -142,6 +147,15 @@ window.addEventListener("load", function () {
     document.getElementById("cerrarModalTablaPremios").addEventListener("click", function () {
         document.getElementById("modalTablaPremios").style.display = "none";
     });
+    // Cerrar el modal de error al hacer clic en la "X"
+    document.getElementById("cerrarModalDepositarCreditos").addEventListener("click", function () {
+        document.getElementById("modalDepositarCreditos").style.display = "none";
+    });
+    // Cerrar el modal de error al hacer clic en la "X"
+    document.getElementById("cerrarModalRetirarCreditos").addEventListener("click", function () {
+        document.getElementById("modalRetirarCreditos").style.display = "none";
+    });
+
 
 
 
@@ -166,7 +180,12 @@ window.addEventListener("load", function () {
         if (event.target == document.getElementById("modalSonidoPantalla")) {
             document.getElementById("modalSonidoPantalla").style.display = "none";
         }
-
+        if (event.target == document.getElementById("modalDepositarCreditos")) {
+            document.getElementById("modalDepositarCreditos").style.display = "none";
+        }
+        if (event.target == document.getElementById("modalRetirarCreditos")) {
+            document.getElementById("modalRetirarCreditos").style.display = "none";
+        }
 
     });
 
@@ -202,10 +221,87 @@ window.addEventListener("load", function () {
 
     });
 
+    //CREDITOS
+    document.getElementById("creditos").addEventListener("click", function () {
+        document.getElementById("inputEurosACreditos").value = "";
+        document.getElementById("modalDepositarCreditos").style.display = "flex";
+
+
+
+
+    });
+    //CONVERSION DE EUROS A CREDITOS
+    document.getElementById("convertirBtn").addEventListener("click", function () {
+        var eurosACreditos = parseFloat(document.getElementById("inputEurosACreditos").value);
+
+        if (!isNaN(eurosACreditos) && eurosACreditos > 0 && eurosACreditos <= saldo) {
+            mostrarError("Has convertido " + eurosACreditos + "€ a " + (eurosACreditos * 100) + " creditos");
+            creditos += (eurosACreditos * 100);
+            saldo -= eurosACreditos;
+            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
+            document.getElementById("creditosInfo").innerHTML = "Saldo Actual:" + creditos;
+
+        } else if (eurosACreditos > saldo) {
+
+            mostrarError("No tienes tantos euros disponibles para convertir.");
+        } else {
+
+            mostrarError("Por favor, ingresa una cantidad válida.");
+        }
+
+    });
+
+    //MODAL DE RETIRAR CREDITOS 
+    document.getElementById("abrirModalRetirarCreditos").addEventListener("click", function () {
+
+        document.getElementById("inputEurosACreditos").value = "";
+        document.getElementById("modalDepositarCreditos").style.display = "none";
+        document.getElementById("modalRetirarCreditos").style.display = "flex";
+
+
+
+    });
+
+    //CONVERSION DE CREDITOS A EUROS
+    document.getElementById("retirarCreditosBtn").addEventListener("click", function () {
+        var creditosAEuros = parseFloat(document.getElementById("inputRetiroCreditos").value);
+
+
+        if (!isNaN(creditosAEuros) && creditosAEuros > 0 && creditosAEuros <= creditos) {
+            mostrarError("Has convertido " + creditosAEuros + " creditos a " + (creditosAEuros / 100) + " €");
+            creditos -= creditosAEuros;
+            saldo += (creditosAEuros / 100);
+
+            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
+            document.getElementById("creditosInfo").innerHTML = "Saldo Actual:" + creditos;
+
+        } else if (creditosAEuros > creditos) {
+
+            mostrarError("No tienes tantos creditos disponibles para convertir.");
+        } else {
+
+            mostrarError("Por favor, ingresa una cantidad válida.");
+        }
+    });
+
+
+    //MODAL DE DEPOSITAR CREDITOS DESDE EL MODAL DE CONVERTIR CREDITOS A EUROS
+    document.getElementById("abrirModalDepositarCreditos").addEventListener("click", function () {
+        document.getElementById("inputRetiroCreditos").value = "";
+        document.getElementById("modalRetirarCreditos").style.display = "none";
+        document.getElementById("modalDepositarCreditos").style.display = "flex";
+    });
+
+
+
+    //INFORMACION
     document.getElementById("info").addEventListener("click", function () {
 
         document.getElementById("modalTablaPremios").style.display = "flex";
     });
+
 
     //SONIDO
     document.getElementById("sonido").addEventListener("click", function () {
@@ -215,11 +311,16 @@ window.addEventListener("load", function () {
         //PAUSAR LA MUSICA
         if (musicaSuena == true) {
             musica.pause();
+            volumen = 0.0;
             musicaSuena = false;
             document.getElementById("sonido").src = "./assets/sonidoRojo.png";
             document.getElementById("iconoSonidoModal").src = "./assets/sonidoMuteRojo.png";
             //ABRO EL MODAL DE SONIDO
             document.getElementById("modalSonidoPantalla").style.display = "flex";
+
+            // Cambia el color de la barra y del slider thumb a rojo
+            barraVolumen.classList.add("mute");
+
 
 
         } else {
@@ -229,6 +330,10 @@ window.addEventListener("load", function () {
             document.getElementById("sonido").src = "./assets/sonido.png";
             //CIERRO EL MODAL DE SONIDO
             document.getElementById("modalSonidoPantalla").style.display = "none";
+
+            // Vuelve a cambiar el color de la barra a su color original
+            barraVolumen.classList.remove("mute");
+
         }
 
 
@@ -249,6 +354,11 @@ window.addEventListener("load", function () {
         if (volumen == 0.0) {
             document.getElementById("iconoSonidoModal").src = "./assets/sonidoMuteRojo.png";
             document.getElementById("sonido").src = "./assets/sonidoRojo.png"
+            barraVolumen.classList.add("mute"); // Añade la clase de mute
+
+        } else {
+            barraVolumen.classList.remove("mute"); // Elimina la clase de mute
+
         }
 
     });
@@ -259,9 +369,15 @@ window.addEventListener("load", function () {
         //PAUSAR LA MUSICA
         if (musicaSuena == true) {
             musica.pause();
+            volumen = 0.0;
             musicaSuena = false;
             document.getElementById("sonido").src = "./assets/sonidoRojo.png";
             document.getElementById("iconoSonidoModal").src = "./assets/sonidoMuteRojo.png";
+
+            // Cambia el color de la barra y del slider thumb a rojo
+            barraVolumen.classList.add("mute");
+
+
 
 
 
@@ -271,9 +387,15 @@ window.addEventListener("load", function () {
             musicaSuena = true;
             document.getElementById("sonido").src = "./assets/sonido.png";
             document.getElementById("iconoSonidoModal").src = "./assets/sonido.png";
+
+            //VOLER AL COLOR ORIGINAL EN LA BARRA
+            barraVolumen.classList.remove("mute");
+
         }
 
     });
+
+
 });
 function cargarHoraInicial() {
     // Pedir permiso al usuario para obtener su ubicación
@@ -523,6 +645,12 @@ function girarCarretes(carretes) {
 function mostrarError(mensaje) {
     document.getElementById('mensajeError').textContent = mensaje;
     document.getElementById('modalError').style.display = "flex";
+
+    //CERRAR AUTOMATICAMENTE A LOS 5 SEGUNDOS
+    setTimeout(() => {
+        document.getElementById('modalError').style.display = "none";
+    }, 2000);
+
 }
 
 
