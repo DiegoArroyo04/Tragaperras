@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -112,7 +112,9 @@
             <div class="footerJuego">
 
                 <div class="iconos">
-                    <button id="creditos" class="creditos">Insertar Creditos</button>
+                    <div class="navegacionFooterJuego">
+                        <button id="creditos" class="creditos">Insertar Creditos</button>
+                    </div>
                     <div class="navegacionFooterJuego">
                         <img src="assets/iconoInformacion.png" id="info" class="icono">
                         <p>CREDITOS:</p>
@@ -128,7 +130,7 @@
                     <h1 id="textoTragaperras">¡TIRE PARA GANAR!</h1>
                 </div>
                 <div class="contenedorBotones">
-                    <img src="assets/disminuirApuesta.png" class="icono">
+                    <img src="assets/disminuirApuesta.png" id="disminuirApuesta" class="icono">
                     <div class="jugar">
                         <img src="assets/botonTirar.png" class="botonTirar" id="botonTirar">
                         <img src="assets/autoplay.png" class="icono">
@@ -143,6 +145,19 @@
                     <span id="valorVolumen" class="valorVolumen">100</span>
                 </div>
             </div>
+            <div id="modalTiradasAutomaticasPantalla" class="modalSonidoPantalla">
+                <div id="modalTiradasAutomaticasContenido" class="modalTiradasAutomaticasContenido">
+                    <span id="cerrarModalTiradas" class="cerrarModal">&times;</span>
+                    <p>NUMERO DE TIRADAS AUTOMÁTICAS</p>
+                    <div class="contenedorElegirTiradas">
+                        <input type="range" id="barraTiradas" class="barraTiradas" min="0" max="100" value="70">
+                        <span id="valorTiradas" class="valorTiradas">70</span>
+                    </div>
+                    <button id="iniciarTiradas">INICIAR TIRADAS AUTOMÁTICAS</button>
+                </div>
+            </div>
+
+        </div>
         </div>
 
         <div id="modalDepositar" class="modal">

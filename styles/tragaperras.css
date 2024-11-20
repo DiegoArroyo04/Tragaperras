@@ -430,7 +430,9 @@
 
     /* Animación de aparición del modal */
     .modalError .contenidoModalError,
-    .modal .contenidoModal {
+    .modal .contenidoModal,
+    .modalSonido,
+    .modalTiradasAutomaticasPantalla {
         animation: aparecerModal 0.5s ease-out forwards;
     }
 
@@ -540,6 +542,15 @@
 
     }
 
+
+
+    .destacar {
+        background-color: #f6af31;
+        /* Un dorado que combina con la paleta */
+        transition: background-color 0.5s ease;
+        /* Suaviza el cambio */
+    }
+
     .footerJuego {
         display: flex;
         width: 100%;
@@ -634,6 +645,32 @@
         color: white;
     }
 
+    .modalTiradasAutomaticasContenido {
+        display: flex;
+        flex-direction: column;
+        padding: 2%;
+        background-color: rgba(0, 0, 0, 0.9);
+        border-radius: 10px;
+        color: #f6af31;
+        align-items: center;
+    }
+
+    .modalTiradasAutomaticasContenido span {
+        color: var(--secundary-color);
+    }
+
+    .contenedorElegirTiradas {
+        margin: 10%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .barraTiradas {
+        width: 70%;
+    }
+
     .creditos {
         text-align: center;
         background-color: var(--secundary-color);
@@ -643,8 +680,9 @@
         border-radius: 30px;
         border: none;
         cursor: pointer;
-        width: 40%;
+        width: 100%;
         transition: transform 0.3s ease, filter 0.3s ease;
+        margin-bottom: 5%;
 
     }
 
@@ -657,13 +695,20 @@
     .navegacionFooterJuego {
         width: 50%;
         display: flex;
-        justify-content: space-evenly;
         color: #f6af31;
-        margin: 2%;
+        align-items: center;
     }
 
+    .navegacionFooterJuego p {
+        color: #f6af31;
+        padding-left: 15%;
+    }
+
+
     .creditosApuesta {
-        color: var(--secundary-color);
+        color: var(--secundary-color) !important;
+        width: 100%;
+        padding-left: 4% !important;
     }
 
 
@@ -729,7 +774,7 @@
     }
 
     .girar {
-        animation: moverCarrete 3s ease-in-out infinite;
+        animation: moverCarrete 3s cubic-bezier(0.25, 0.1, 0.25, 1)infinite;
     }
 
 
@@ -744,7 +789,7 @@
         }
 
         100% {
-            transform: translateY(-0%);
+            transform: translateY(0%);
         }
     }
 
