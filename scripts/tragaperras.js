@@ -722,8 +722,8 @@ function girarCarretes(carretes) {
 
         // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
 
-        for (i = 0; i < carrete1.length; i++) {
-            carrete1[i].classList.remove('girar');
+        for (i = 0; i < carrete2.length; i++) {
+            carrete2[i].classList.remove('girar');
         }
 
         sonidoCarrete.play();
@@ -813,8 +813,8 @@ function girarCarretes(carretes) {
 
                 // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
 
-                for (i = 0; i < carrete1.length; i++) {
-                    carrete1[i].classList.remove('girar');
+                for (i = 0; i < carrete3.length; i++) {
+                    carrete3[i].classList.remove('girar');
                 }
 
                 sonidoCarrete.play();
