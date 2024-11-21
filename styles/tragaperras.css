@@ -603,20 +603,28 @@
         /* Mantén el tamaño que prefieras */
         top: 28%;
         /* Controla cuánto sobresale por arriba */
-        left: 50%;
+        left: 40.5%;
         /* Posición horizontal centrada respecto al padre */
         transform: translateX(-50%);
         /* Corrige el desplazamiento horizontal para centrar */
+        animation: crecerReducir 1s infinite;
 
     }
 
     .girafaPremio {
-        margin-top: 20%;
-        height: 15vh;
+        height: 18vh;
+        animation: crecerReducir 1s infinite;
     }
 
     .mensajeVictoria {
         margin-top: 20%;
+        margin-bottom: 10%;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ffd700;
+        text-align: center;
+        text-shadow: 2px 2px 8px #ff4500, 0 0 15px #ff8c00;
+        animation: crecerReducir 1s infinite;
     }
 
     .cerrarModalVictoria {
@@ -866,6 +874,10 @@
         align-items: center;
     }
 
+    #cantidadTiradas {
+        display: none;
+    }
+
     .botonTirar {
         width: 8vw;
         padding: 1vh 1vw;
@@ -919,13 +931,16 @@
 
     @keyframes moverCarrete {
 
-        0%,
-        100% {
+        0% {
             transform: translateY(0%);
         }
 
         50% {
             transform: translateY(-1200%);
+        }
+
+        100% {
+            transform: translateY(0%);
         }
 
 

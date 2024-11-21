@@ -22,7 +22,6 @@ var apuesta = 20;
 
 window.addEventListener("load", function () {
 
-    document.getElementById("modalVictoria").style.display = "flex";
 
     //Cargar hora por primera vez
     cargarHoraInicial();
@@ -151,10 +150,14 @@ window.addEventListener("load", function () {
         document.getElementById("modalTiradasAutomaticasPantalla").style.display = "none";
         tiradas = barraTiradas.value;
 
+
         // Realizar la primera tirada inmediatamente
         if (tiradas > 0 && apuesta <= creditos) {
+            document.getElementById("botonTirar").src = "./assets/tiradasAutomaticasParar.png";
+            document.getElementById("tiradasAutomaticas").style.display = "none";
+            document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
+            document.getElementById("cantidadTiradas").style.display = "flex";
             girarCarretes(carretes);
-
             // Descontar la apuesta de la primera tirada
             creditos -= apuesta;
             document.getElementById("creditosTotales").innerHTML = creditos;
@@ -173,20 +176,21 @@ window.addEventListener("load", function () {
         // Ejecutar tiradas automáticas con un intervalo
         let intervaloTiradas = setInterval(function () {
             if (tiradas > 0 && apuesta <= creditos) {
+                document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
                 girarCarretes(carretes);
-
                 // Descontar apuesta
                 creditos -= apuesta;
                 document.getElementById("creditosTotales").innerHTML = creditos;
                 document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
 
                 tiradas--;
-                console.log(`Tiradas restantes: ${tiradas}`);
+
             } else {
                 // Si no hay más tiradas o créditos insuficientes, detener
                 clearInterval(intervaloTiradas);
                 document.getElementById("botonTirar").src = "./assets/botonTirar.png";
-
+                document.getElementById("tiradasAutomaticas").style.display = "flex";
+                document.getElementById("cantidadTiradas").style.display = "none";
                 if (apuesta > creditos) {
                     document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
                     setTimeout(() => {
@@ -194,7 +198,7 @@ window.addEventListener("load", function () {
                     }, 2000);
                 }
             }
-        }, 9000); // Tiempo entre tiradas (9 segundos en este caso)
+        }, 14000); // Tiempo entre tiradas (14 segundos por si gana de tiempo al modal)
     });
 
 
@@ -320,9 +324,10 @@ window.addEventListener("load", function () {
     document.getElementById("cerrarModalTiradas").addEventListener("click", function () {
         document.getElementById("modalTiradasAutomaticasPantalla").style.display = "none";
     });
-
-
-
+    // Cerrar el modal de error al hacer clic en la "X"
+    document.getElementById("cerrarModalVictoria").addEventListener("click", function () {
+        document.getElementById("modalVictoria").style.display = "none";
+    });
 
 
     // Cierra el modal al hacer clic fuera del contenido
@@ -720,36 +725,32 @@ function girarCarretes(carretes) {
             carrete3[i].src = "assets/" + carretes[2][aleatorio];
         }
 
-        // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
+        // PARAMOS LA ANIMACION ESPERANDO UN POCO PARA QUE DE TIEMPO A QUE LLEGUE A SU POSICION INICIAL
+        setTimeout(() => {
+            for (i = 0; i < carrete1.length; i++) {
+                carrete1[i].classList.remove('girar');
+            }
+        }, 50);
 
-        for (i = 0; i < carrete1.length; i++) {
-            carrete1[i].classList.remove('girar');
-        }
 
         sonidoCarrete.play();
-
-
 
         //ANIMACION CARRETE 2
         for (i = 0; i < carrete2.length; i++) {
             carrete2[i].classList.add('girar');
         }
 
-
         // ESPERO DOS SEGUNDOS PARA QUE COMIENCEN LOS CARRETES A GIRAR Y NO SE VEA EL CAMBIO DE IMAGEN
         setTimeout(() => {
+
             //COMBINACIONES A COMPROBAR
             //CAMBIO LAS IMAGENES ALEATORIAMENTE 
             carrete2[0].src = "assets/" + carretes[1][numerosAleatorios[3]];
             carrete2[1].src = "assets/" + carretes[1][numerosAleatorios[4]];
             carrete2[2].src = "assets/" + carretes[1][numerosAleatorios[5]];
 
-
         }, 2000);
         setTimeout(() => {
-
-
-
 
             //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
             for (i = 3; i < carrete1.length; i++) {
@@ -767,11 +768,12 @@ function girarCarretes(carretes) {
                 carrete3[i].src = "assets/" + carretes[2][aleatorio];
             }
 
-            // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
-
-            for (i = 0; i < carrete2.length; i++) {
-                carrete2[i].classList.remove('girar');
-            }
+            // PARAMOS LA ANIMACION ESPERANDO UN POCO PARA QUE DE TIEMPO A QUE LLEGUE A SU POSICION INICIAL
+            setTimeout(() => {
+                for (i = 0; i < carrete2.length; i++) {
+                    carrete2[i].classList.remove('girar');
+                }
+            }, 50);
 
             sonidoCarrete.play();
 
@@ -811,11 +813,12 @@ function girarCarretes(carretes) {
                     carrete3[i].src = "assets/" + carretes[2][aleatorio];
                 }
 
-                // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
-
-                for (i = 0; i < carrete3.length; i++) {
-                    carrete3[i].classList.remove('girar');
-                }
+                // PARAMOS LA ANIMACION ESPERANDO UN POCO PARA QUE DE TIEMPO A QUE LLEGUE A SU POSICION INICIAL
+                setTimeout(() => {
+                    for (i = 0; i < carrete3.length; i++) {
+                        carrete3[i].classList.remove('girar');
+                    }
+                }, 50);
 
                 sonidoCarrete.play();
 
