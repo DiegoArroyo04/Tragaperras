@@ -133,11 +133,12 @@
                     <img src="assets/disminuirApuesta.png" id="disminuirApuesta" class="icono">
                     <div class="jugar">
                         <img src="assets/botonTirar.png" class="botonTirar" id="botonTirar">
-                        <img src="assets/autoplay.png" class="icono">
+                        <img src="assets/autoplay.png" id="tiradasAutomaticas" class="icono">
                     </div>
                     <img src="assets/aumentarApuesta.png" id="aumentarApuesta" class="icono">
                 </div>
             </div>
+
             <div id="modalSonidoPantalla" class="modalSonidoPantalla">
                 <div id="modalSonido" class="modalSonido">
                     <img id="iconoSonidoModal" src="assets/sonidoMuteRojo.png">
@@ -145,15 +146,16 @@
                     <span id="valorVolumen" class="valorVolumen">100</span>
                 </div>
             </div>
+
             <div id="modalTiradasAutomaticasPantalla" class="modalSonidoPantalla">
                 <div id="modalTiradasAutomaticasContenido" class="modalTiradasAutomaticasContenido">
-                    <span id="cerrarModalTiradas" class="cerrarModal">&times;</span>
-                    <p>NUMERO DE TIRADAS AUTOMÁTICAS</p>
+                    <span id="cerrarModalTiradas" class="cerrarModalTiradas">&times;</span>
+                    <p class="tituloTiradas">NUMERO DE TIRADAS AUTOMÁTICAS</p>
                     <div class="contenedorElegirTiradas">
                         <input type="range" id="barraTiradas" class="barraTiradas" min="0" max="100" value="70">
                         <span id="valorTiradas" class="valorTiradas">70</span>
                     </div>
-                    <button id="iniciarTiradas">INICIAR TIRADAS AUTOMÁTICAS</button>
+                    <button id="iniciarTiradas" class="iniciarTiradas">INICIAR TIRADAS AUTOMÁTICAS</button>
                 </div>
             </div>
 
@@ -245,7 +247,14 @@
                 </div>
             </div>
         </div>
-
+        <div id="modalVictoria" class="modalVictoria">
+            <div class="modalVictoriaContenido">
+                <span id="cerrarModalVictoria" class="cerrarModalVictoria">&times;</span>
+                <img src="assets/premioHeader.png" class="premioHeader">
+                <p id="modalVictoriaMensaje" class="mensajeVictoria"></p>
+                <img src="assets/girafaPremios.png" class="girafaPremio">
+            </div>
+        </div>
 
 
         <div id="modalTablaPremios" class="tablaPremios ">
@@ -289,6 +298,12 @@
                     <td>Activador de Giros</td>
                     <td colspan="5">3 Jirafas activan 10 giros gratuitos con el multiplicador de la jirafa aplicado a
                         todos los símbolos.</td>
+                </tr>
+                <tr>
+                    <td>Acumulador de multiplicadores</td>
+                    <td colspan="5">¡Si se obtienen varias combinaciones ganadoras, ¡los multiplicadores de todas se
+                        suman!
+                    </td>
                 </tr>
             </table>
         </div>

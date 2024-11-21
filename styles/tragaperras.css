@@ -24,7 +24,6 @@
         width: 100%;
         max-height: 100vh;
 
-
     }
 
     /* Estilo del Preloader */
@@ -276,8 +275,6 @@
         text-align: center;
         border: 3px solid #3A5A40;
 
-
-
     }
 
     /* BOTON DE CIERRE MODAL */
@@ -432,7 +429,8 @@
     .modalError .contenidoModalError,
     .modal .contenidoModal,
     .modalSonido,
-    .modalTiradasAutomaticasPantalla {
+    .modalTiradasAutomaticasPantalla,
+    .modalVictoria {
         animation: aparecerModal 0.5s ease-out forwards;
     }
 
@@ -543,12 +541,104 @@
     }
 
 
-
     .destacar {
         background-color: #f6af31;
-        /* Un dorado que combina con la paleta */
-        transition: background-color 0.5s ease;
-        /* Suaviza el cambio */
+        border: 3px solid #ffdf00;
+        border-radius: 10px;
+        box-shadow: 0 0 15px #ffdf00;
+        animation: crecerReducir 1s infinite;
+        transition: background-color 0.5s ease, border 0.5s ease;
+    }
+
+    /* Animación de crecimiento */
+    @keyframes crecerReducir {
+
+        0%,
+        100% {
+            transform: scale(1);
+
+        }
+
+        50% {
+            transform: scale(1.1);
+
+        }
+    }
+
+    /* Estilo general del modal */
+    .modalVictoria {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+
+    .modalVictoriaContenido {
+        background-color: #000000d0;
+        padding: 2%;
+        padding-top: 0;
+        border-radius: 10px;
+        width: 30%;
+        height: 40%;
+        text-align: center;
+    }
+
+    .modalVictoriaContenido img {
+        max-width: 100%;
+
+    }
+
+    .premioHeader {
+        position: absolute;
+        position: absolute;
+        width: 20vw;
+        /* Mantén el tamaño que prefieras */
+        top: 28%;
+        /* Controla cuánto sobresale por arriba */
+        left: 50%;
+        /* Posición horizontal centrada respecto al padre */
+        transform: translateX(-50%);
+        /* Corrige el desplazamiento horizontal para centrar */
+
+    }
+
+    .girafaPremio {
+        margin-top: 20%;
+        height: 15vh;
+    }
+
+    .mensajeVictoria {
+        margin-top: 20%;
+    }
+
+    .cerrarModalVictoria {
+        position: absolute;
+        cursor: pointer;
+        width: 3vw;
+        right: 35%;
+        top: 33%;
+    }
+
+
+    /* Animación de entrada */
+    @keyframes zoomIn {
+        0% {
+            transform: scale(0.7);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
     }
 
     .footerJuego {
@@ -597,9 +687,6 @@
     }
 
 
-
-
-
     .modalSonido img:hover {
         transform: scale(1.2);
         cursor: pointer;
@@ -626,15 +713,12 @@
 
     }
 
-
     /* Estilo para el thumb cuando está en mute */
     .barraVolumen.mute,
     .mute::-webkit-slider-thumb {
         background: #c30a0a;
 
     }
-
-
 
 
     .valorVolumen {
@@ -664,11 +748,66 @@
         width: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
 
     }
 
+    .iniciarTiradas {
+        background: #00b862;
+        font-family: 'Lilita One';
+        color: var(--secundary-color);
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+        width: 100%;
+        height: 5vh;
+    }
+
+    .cerrarModalTiradas {
+        position: absolute;
+        cursor: pointer;
+        width: 3vw;
+        right: 32%;
+        top: 33%;
+    }
+
+    .tituloTiradas {
+        width: 100%;
+        font-size: 1.3vw;
+    }
+
+    .iniciarTiradas:hover {
+
+        background: #33bb7c;
+    }
+
+
+
     .barraTiradas {
         width: 70%;
+        appearance: none;
+        background: var(--primary-color);
+        border-radius: 10px;
+        height: 100%;
+    }
+
+    .barraTiradas::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 1vw;
+        height: 2vh;
+        background: var(--primary-color);
+        border-radius: 50%;
+        cursor: pointer;
+        border: 1px solid #fff;
+    }
+
+    .valorTiradas {
+        display: inline-block;
+        width: 30%;
+        text-align: center;
+        font-size: 1em;
+        color: white;
     }
 
     .creditos {
@@ -774,13 +913,14 @@
     }
 
     .girar {
-        animation: moverCarrete 3s cubic-bezier(0.25, 0.1, 0.25, 1)infinite;
+        animation: moverCarrete 3s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     }
 
 
-
     @keyframes moverCarrete {
-        0% {
+
+        0%,
+        100% {
             transform: translateY(0%);
         }
 
@@ -788,9 +928,8 @@
             transform: translateY(-1200%);
         }
 
-        100% {
-            transform: translateY(0%);
-        }
+
+
     }
 
     footer {

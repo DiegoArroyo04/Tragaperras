@@ -4,16 +4,25 @@ const barraVolumen = document.getElementById("barraVolumen");
 const valorVolumen = document.getElementById("valorVolumen");
 var volumen = barraVolumen.value / 100; // Convertir el valor de 0-100 a 0.0-1.0
 
+var barraTiradas = document.getElementById("barraTiradas");
+var valorTiradas = document.getElementById("valorTiradas");
+var tiradas = barraTiradas.value;
+
+
+
+//CANCION 
 var musica = new Audio('assets/musicaTragaperras.mp3');
 musica.loop = true;
 var musicaSuena = true;
 
+//SALDO APUESTAS
 var saldo = 0.00;
 var creditos = 0;
 var apuesta = 20;
 
 window.addEventListener("load", function () {
 
+    document.getElementById("modalVictoria").style.display = "flex";
 
     //Cargar hora por primera vez
     cargarHoraInicial();
@@ -72,7 +81,7 @@ window.addEventListener("load", function () {
 
 
 
-
+    //ICONOS
     var girafa = "iconoGirafa.png";
     var arbol = "iconoArbol.png";
     var loro = "iconoLoro.png";
@@ -125,6 +134,73 @@ window.addEventListener("load", function () {
             }
         }
     });
+
+    //TIRADAS AUTOMATICAS
+    document.getElementById("tiradasAutomaticas").addEventListener("click", function () {
+        document.getElementById("modalTiradasAutomaticasPantalla").style.display = "flex";
+    });
+
+
+    barraTiradas.addEventListener("input", function () {
+
+        valorTiradas.textContent = barraTiradas.value; // Mostrar el valor actual
+
+    });
+
+    document.getElementById("iniciarTiradas").addEventListener("click", function () {
+        document.getElementById("modalTiradasAutomaticasPantalla").style.display = "none";
+        tiradas = barraTiradas.value;
+
+        // Realizar la primera tirada inmediatamente
+        if (tiradas > 0 && apuesta <= creditos) {
+            girarCarretes(carretes);
+
+            // Descontar la apuesta de la primera tirada
+            creditos -= apuesta;
+            document.getElementById("creditosTotales").innerHTML = creditos;
+            document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+
+            tiradas--;
+            console.log(`Primera tirada realizada. Tiradas restantes: ${tiradas}`);
+        } else {
+            document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
+            setTimeout(() => {
+                document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+            }, 2000);
+            return; // Salir si no se puede realizar la primera tirada
+        }
+
+        // Ejecutar tiradas automáticas con un intervalo
+        let intervaloTiradas = setInterval(function () {
+            if (tiradas > 0 && apuesta <= creditos) {
+                girarCarretes(carretes);
+
+                // Descontar apuesta
+                creditos -= apuesta;
+                document.getElementById("creditosTotales").innerHTML = creditos;
+                document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+
+                tiradas--;
+                console.log(`Tiradas restantes: ${tiradas}`);
+            } else {
+                // Si no hay más tiradas o créditos insuficientes, detener
+                clearInterval(intervaloTiradas);
+                document.getElementById("botonTirar").src = "./assets/botonTirar.png";
+
+                if (apuesta > creditos) {
+                    document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
+                    setTimeout(() => {
+                        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+                    }, 2000);
+                }
+            }
+        }, 9000); // Tiempo entre tiradas (9 segundos en este caso)
+    });
+
+
+
+
+
 
 
     //AÑADIR SALDO
@@ -240,6 +316,11 @@ window.addEventListener("load", function () {
     document.getElementById("cerrarModalRetirarCreditos").addEventListener("click", function () {
         document.getElementById("modalRetirarCreditos").style.display = "none";
     });
+    // Cerrar el modal de error al hacer clic en la "X"
+    document.getElementById("cerrarModalTiradas").addEventListener("click", function () {
+        document.getElementById("modalTiradasAutomaticasPantalla").style.display = "none";
+    });
+
 
 
 
@@ -273,6 +354,9 @@ window.addEventListener("load", function () {
         }
         if (event.target == document.getElementById("modalTiradasAutomaticasPantalla")) {
             document.getElementById("modalTiradasAutomaticasPantalla").style.display = "none";
+        }
+        if (event.target == document.getElementById("modalVictoria")) {
+            document.getElementById("modalVictoria").style.display = "none";
         }
 
     });
@@ -619,14 +703,6 @@ function girarCarretes(carretes) {
     setTimeout(() => {
 
 
-        // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
-
-
-        for (i = 0; i < carrete1.length; i++) {
-            carrete1[i].classList.remove('girar');
-        }
-
-
 
         //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
         for (i = 3; i < carrete1.length; i++) {
@@ -642,6 +718,12 @@ function girarCarretes(carretes) {
         for (i = 3; i < carrete3.length; i++) {
             var aleatorio = Math.floor(Math.random() * 15);
             carrete3[i].src = "assets/" + carretes[2][aleatorio];
+        }
+
+        // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
+
+        for (i = 0; i < carrete1.length; i++) {
+            carrete1[i].classList.remove('girar');
         }
 
         sonidoCarrete.play();
@@ -667,12 +749,7 @@ function girarCarretes(carretes) {
         setTimeout(() => {
 
 
-            // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
 
-
-            for (i = 0; i < carrete2.length; i++) {
-                carrete2[i].classList.remove('girar');
-            }
 
             //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
             for (i = 3; i < carrete1.length; i++) {
@@ -688,6 +765,12 @@ function girarCarretes(carretes) {
             for (i = 3; i < carrete3.length; i++) {
                 var aleatorio = Math.floor(Math.random() * 15);
                 carrete3[i].src = "assets/" + carretes[2][aleatorio];
+            }
+
+            // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
+
+            for (i = 0; i < carrete1.length; i++) {
+                carrete1[i].classList.remove('girar');
             }
 
             sonidoCarrete.play();
@@ -712,13 +795,6 @@ function girarCarretes(carretes) {
             setTimeout(() => {
 
 
-                // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
-
-
-                for (i = 0; i < carrete3.length; i++) {
-                    carrete3[i].classList.remove('girar');
-                }
-
                 //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
                 for (i = 3; i < carrete1.length; i++) {
                     var aleatorio = Math.floor(Math.random() * 15);
@@ -733,6 +809,12 @@ function girarCarretes(carretes) {
                 for (i = 3; i < carrete3.length; i++) {
                     var aleatorio = Math.floor(Math.random() * 15);
                     carrete3[i].src = "assets/" + carretes[2][aleatorio];
+                }
+
+                // Eliminar la clase 'girar' después de que las imágenes se hayan actualizado
+
+                for (i = 0; i < carrete1.length; i++) {
+                    carrete1[i].classList.remove('girar');
                 }
 
                 sonidoCarrete.play();
@@ -808,112 +890,100 @@ function comprobarSimbolos(carrete1, carrete2, carrete3, apuestaActual) {
 
 
 
-    // COMPROBAR FILAS HORIZONTALES
 
-    //GIRAFA
-    comprobarFilasHorizontales(girafa, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarFilasHorizontales(arbol, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarFilasHorizontales(loro, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarFilasHorizontales(platanos, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarFilasHorizontales(flor, carrete1, carrete2, carrete3), apuestaActual;
-
-    // COMPROBAR DIAGONALES
-    comprobarDiagonales(girafa, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarDiagonales(arbol, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarDiagonales(loro, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarDiagonales(platanos, carrete1, carrete2, carrete3, apuestaActual);
-    comprobarDiagonales(flor, carrete1, carrete2, carrete3, apuestaActual);
+    calcularPremioCombinado(girafa, carrete1, carrete2, carrete3, apuestaActual);
+    calcularPremioCombinado(arbol, carrete1, carrete2, carrete3, apuestaActual);
+    calcularPremioCombinado(loro, carrete1, carrete2, carrete3, apuestaActual);
+    calcularPremioCombinado(platanos, carrete1, carrete2, carrete3, apuestaActual);
+    calcularPremioCombinado(flor, carrete1, carrete2, carrete3, apuestaActual);
 
 }
-function comprobarFilasHorizontales(simbolo, carrete1, carrete2, carrete3, apuestaActual) {
-    // Función auxiliar para obtener solo el nombre del archivo
+function calcularPremioCombinado(simbolo, carrete1, carrete2, carrete3, apuestaActual) {
+
+    // Obtiene solo el nombre de la imagen desde su ruta
     function obtenerNombreImagen(src) {
-        return src.split('/').pop(); // Obtiene solo el nombre de la imagen
+        return src.split('/').pop();
     }
 
-    // LINEA DE ARRIBA
-    if (obtenerNombreImagen(carrete1[0].src) === obtenerNombreImagen(carrete2[0].src) &&
-        obtenerNombreImagen(carrete1[0].src) === obtenerNombreImagen(carrete3[0].src) &&
-        obtenerNombreImagen(simbolo.imagen) === obtenerNombreImagen(carrete1[0].src)) {
-        resaltarImagenes([carrete1[0], carrete2[0], carrete3[0]]);
-        var premio = apuestaActual * simbolo.multiHorizontalesArribaAbajo;
-        creditos += premio;
-        document.getElementById("creditosTotales").innerHTML = creditos;
-        document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
-        setTimeout(() => mostrarError("¡HAS GANADO " + premio + " CREDITOS!"), 2000);
-        document.getElementById("textoTragaperras").innerHTML = "GANANCIAS: " + premio + " CREDITOS!";
-        setTimeout(() => document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!", 5000);
+    //ACUMULARA EL MULTIPLICADOR DE TODAS LAS CASUISTICAS Y SI HAY MAS DE DOS SE SUMARA 
+    var multiplicadorTotal = 0;
+    //ALMACENA LAS IMAGENES DE LAS COMBINACIONES GANADORAS PARA RESALTARLAS
+    var combinacionesGanadoras = [];
 
-
-    }
-
-    // LINEA DEL MEDIO
+    // COMBINACION LINEA CENTRAL
     if (obtenerNombreImagen(carrete1[1].src) === obtenerNombreImagen(carrete2[1].src) &&
         obtenerNombreImagen(carrete1[1].src) === obtenerNombreImagen(carrete3[1].src) &&
         obtenerNombreImagen(simbolo.imagen) === obtenerNombreImagen(carrete1[1].src)) {
-        resaltarImagenes([carrete1[1], carrete2[1], carrete3[1]]);
-        var premio = apuestaActual * simbolo.multiCentral;
-        creditos += premio;
-        document.getElementById("creditosTotales").innerHTML = creditos;
-        document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
-        setTimeout(() => mostrarError("¡HAS GANADO " + premio + " CREDITOS!"), 2000);
-        document.getElementById("textoTragaperras").innerHTML = "GANANCIAS: " + premio + " CREDITOS!";
-        setTimeout(() => document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!", 5000);
-
+        multiplicadorTotal += simbolo.multiCentral;
+        combinacionesGanadoras.push([carrete1[1], carrete2[1], carrete3[1]]);
     }
 
-    // LINEA DE ABAJO
+    // COMBINACION LINEA SUPERIOR
+    if (obtenerNombreImagen(carrete1[0].src) === obtenerNombreImagen(carrete2[0].src) &&
+        obtenerNombreImagen(carrete1[0].src) === obtenerNombreImagen(carrete3[0].src) &&
+        obtenerNombreImagen(simbolo.imagen) === obtenerNombreImagen(carrete1[0].src)) {
+        multiplicadorTotal += simbolo.multiHorizontalesArribaAbajo;
+        combinacionesGanadoras.push([carrete1[0], carrete2[0], carrete3[0]]);
+    }
+
+    // COMBINACION LINEA INFERIOR
     if (obtenerNombreImagen(carrete1[2].src) === obtenerNombreImagen(carrete2[2].src) &&
         obtenerNombreImagen(carrete1[2].src) === obtenerNombreImagen(carrete3[2].src) &&
         obtenerNombreImagen(simbolo.imagen) === obtenerNombreImagen(carrete1[2].src)) {
-        resaltarImagenes([carrete1[2], carrete2[2], carrete3[2]]);
-        var premio = apuestaActual * simbolo.multiHorizontalesArribaAbajo;
-        creditos += premio;
-        document.getElementById("creditosTotales").innerHTML = creditos;
-        document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
-        setTimeout(() => mostrarError("¡HAS GANADO " + premio + " CREDITOS!"), 2000);
-        document.getElementById("textoTragaperras").innerHTML = "GANANCIAS: " + premio + " CREDITOS!";
-        setTimeout(() => document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!", 5000);
-
-    }
-}
-
-function comprobarDiagonales(simbolo, carrete1, carrete2, carrete3, apuestaActual) {
-    // Función auxiliar para obtener solo el nombre del archivo
-    function obtenerNombreImagen(src) {
-        return src.split('/').pop(); // Obtiene solo el nombre de la imagen
+        multiplicadorTotal += simbolo.multiHorizontalesArribaAbajo;
+        combinacionesGanadoras.push([carrete1[2], carrete2[2], carrete3[2]]);
     }
 
-    // DIAGONAL IZQUIERDA
+    // COMBINACION DIAGONAL IZQUIERDA
     if (obtenerNombreImagen(carrete1[0].src) === obtenerNombreImagen(carrete2[1].src) &&
         obtenerNombreImagen(carrete1[0].src) === obtenerNombreImagen(carrete3[2].src) &&
         obtenerNombreImagen(simbolo.imagen) === obtenerNombreImagen(carrete1[0].src)) {
-        resaltarImagenes([carrete1[0], carrete2[1], carrete3[2]]);
-        var premio = apuestaActual * simbolo.multiDiagonal;
-        creditos += premio;
-        document.getElementById("creditosTotales").innerHTML = creditos;
-        document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
-        setTimeout(() => mostrarError("¡HAS GANADO " + premio + " CREDITOS!"), 2000);
-        document.getElementById("textoTragaperras").innerHTML = "GANANCIAS: " + premio + " CREDITOS!";
-        setTimeout(() => document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!", 5000);
-
+        multiplicadorTotal += simbolo.multiDiagonal;
+        combinacionesGanadoras.push([carrete1[0], carrete2[1], carrete3[2]]);
     }
 
-    // DIAGONAL DERECHA
+    // COMBINACION DIAGONAL DERECHA
     if (obtenerNombreImagen(carrete3[0].src) === obtenerNombreImagen(carrete2[1].src) &&
         obtenerNombreImagen(carrete3[0].src) === obtenerNombreImagen(carrete1[2].src) &&
         obtenerNombreImagen(simbolo.imagen) === obtenerNombreImagen(carrete3[0].src)) {
-        resaltarImagenes([carrete3[0], carrete2[1], carrete1[2]]);
-        var premio = apuestaActual * simbolo.multiDiagonal;
+        multiplicadorTotal += simbolo.multiDiagonal;
+        combinacionesGanadoras.push([carrete3[0], carrete2[1], carrete1[2]]);
+    }
+
+    // Si hay algún multiplicador, calcular el premio
+    if (multiplicadorTotal > 0) {
+        combinacionesGanadoras.forEach(imagenes => resaltarImagenes(imagenes));
+        var premio = apuestaActual * multiplicadorTotal;
         creditos += premio;
         document.getElementById("creditosTotales").innerHTML = creditos;
         document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
-        setTimeout(() => mostrarError("¡HAS GANADO " + premio + " CREDITOS!"), 2000);
+        mostrarModalVictoria("¡HAS GANADO " + premio + " CREDITOS!");
         document.getElementById("textoTragaperras").innerHTML = "GANANCIAS: " + premio + " CREDITOS!";
         setTimeout(() => document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!", 5000);
 
+        //SONIDO MONEDAS CAYENDO
+        var sonidoMonedas = new Audio('assets/sonidoMonedas.mp3');
+        sonidoMonedas.volume = volumen;
+        sonidoMonedas.play();
     }
+
+
 }
+
+function mostrarModalVictoria(mensaje) {
+    // Asigna el mensaje de victoria
+    document.getElementById("modalVictoriaMensaje").innerText = mensaje;
+
+    document.getElementById("modalVictoria").style.display = "flex";
+
+    //CERRAR AUTOMATICAMENTE A LOS 3 SEGUNDOS
+    setTimeout(() => {
+        document.getElementById('modalVictoria').style.display = "none";
+    }, 3000);
+
+}
+
+
 // Función para resaltar imágenes específicas
 function resaltarImagenes(imagenes) {
     imagenes.forEach(imagen => {
