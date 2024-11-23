@@ -611,6 +611,7 @@
     .girafaPremio {
         height: 18vh;
         animation: crecerReducir 1s infinite;
+        padding-bottom: 2%;
     }
 
     .mensajeVictoria {

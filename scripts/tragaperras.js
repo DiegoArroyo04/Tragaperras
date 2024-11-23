@@ -39,7 +39,7 @@ var carretes = [
 
 
 window.addEventListener("load", function () {
-
+    document.getElementById("modalVictoria").style.display = "flex";
     //Cargar hora por primera vez
     cargarHoraInicial();
 
