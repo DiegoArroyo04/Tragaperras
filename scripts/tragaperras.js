@@ -37,6 +37,7 @@ var carretes = [
     [girafa, arbol, loro, platanos, flor, flor, platanos, platanos, loro, arbol, flor, platanos, flor, loro, flor]
 ];
 
+
 window.addEventListener("load", function () {
 
     //Cargar hora por primera vez
@@ -104,6 +105,12 @@ window.addEventListener("load", function () {
 
     //GIRAR CUANDO PULSE EL BOTON TIRAR
     document.getElementById("botonTirar").addEventListener('click', function () {
+
+        //SI YA ESTA GIRANDO CORTAR LA EJECUCION
+        if (estaGirando == true) {
+            return;
+        }
+
         //SI ES EL BOTON DE TIRAR
         if (document.getElementById("botonTirar").src.includes = "botonTirar.png") {
             if (apuesta <= creditos) {
@@ -146,10 +153,17 @@ window.addEventListener("load", function () {
 
     //GIRAR CON EL ESPACIO
     window.addEventListener('keydown', function (event) {
+
+        //SI YA ESTA GIRANDO CORTAR LA EJECUCION
+        if (estaGirando == true) {
+            event.preventDefault(); // Prevenir el desplazamiento de la página
+            return;
+        }
+
         if (event.key === ' ') {
             event.preventDefault(); // Prevenir el desplazamiento de la página
             //SI ES EL BOTON DE TIRAR QUE GIRE
-            if (document.getElementById("botonTirar").src.includes = "botonTirar.png") {
+            if (document.getElementById("botonTirar").src.includes = "botonTirar.png" && activadorGiros == false) {
                 if (apuesta <= creditos) {
                     girarCarretes(carretes);
                     //QUITAR APUESTA
@@ -379,8 +393,6 @@ window.addEventListener("load", function () {
         document.getElementById("modalDepositarCreditos").style.display = "flex";
 
 
-
-
     });
     //CONVERSION DE EUROS A CREDITOS
     document.getElementById("convertirBtn").addEventListener("click", function () {
@@ -411,8 +423,6 @@ window.addEventListener("load", function () {
         document.getElementById("inputEurosACreditos").value = "";
         document.getElementById("modalDepositarCreditos").style.display = "none";
         document.getElementById("modalRetirarCreditos").style.display = "flex";
-
-
 
     });
 
@@ -766,8 +776,6 @@ function girarCarretes(carretes) {
                 carrete3[1].src = "assets/" + carretes[2][numerosAleatorios[7]];
                 carrete3[2].src = "assets/" + carretes[2][numerosAleatorios[8]];
 
-
-
             }, 2000);
             setTimeout(() => {
 
@@ -984,6 +992,7 @@ function calcularPremioCombinado(simbolo, carrete1, carrete2, carrete3, apuestaA
     //SI SON TRES GIRAFAS ACTIVAMOS GIROS GRATIS
     if (simbolo.imagen == "assets/iconoGirafa.png" && multiplicadorTotal > 0 && activadorGiros == false) {
         activadorGiros = true;
+
         // Esperar 2 segundos antes de mostrar el modal de giros gratis para que se vea el premio de la triple girafa
         setTimeout(() => {
             mostrarModalVictoria("¡HAS GANADO 10 GIROS GRATIS!");
@@ -1037,10 +1046,14 @@ function tiradasAutomaticas() {
 
     //CAMBIAR EL VALOR DE LAS TIRADAS SI SE LLAMA DESDE EL BONO A 10 TIRADAS GRATUITAS
     if (activadorGiros == true) {
-        tiradas = 10;
+        // Detener cualquier tirada automática en curso
+        clearInterval(intervaloTiradas);
 
+        tiradas = 10;
         //PRIMERA TIRADA SIN DESCONTAR NADA PORQUE SON GRATIS
         document.getElementById("botonTirar").src = "./assets/tiradasAutomaticasParar.png";
+        document.getElementById("disminuirApuesta").src = "./assets/disminuirApuestaMinima.png";
+        document.getElementById("aumentarApuesta").src = "./assets/aumentarApuestaMaxima.png";
         document.getElementById("tiradasAutomaticas").style.display = "none";
         document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
         document.getElementById("cantidadTiradas").style.display = "flex";
@@ -1058,6 +1071,8 @@ function tiradasAutomaticas() {
                 activadorGiros = false;
                 clearInterval(intervaloTiradas);
                 document.getElementById("botonTirar").src = "./assets/botonTirar.png";
+                document.getElementById("disminuirApuesta").src = "./assets/disminuirApuesta.png";
+                document.getElementById("aumentarApuesta").src = "./assets/aumentarApuesta.png";
                 document.getElementById("tiradasAutomaticas").style.display = "flex";
                 document.getElementById("cantidadTiradas").style.display = "none";
             }
@@ -1065,19 +1080,24 @@ function tiradasAutomaticas() {
 
         //TIRADAS AUTOMATICAS COBRANDO 
     } else {
+
         // Realizar la primera tirada inmediatamente
         if (tiradas > 0 && apuesta <= creditos) {
+
+
             document.getElementById("botonTirar").src = "./assets/tiradasAutomaticasParar.png";
             document.getElementById("tiradasAutomaticas").style.display = "none";
             document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
             document.getElementById("cantidadTiradas").style.display = "flex";
             girarCarretes(carretes);
+
             // Descontar la apuesta de la primera tirada
             creditos -= apuesta;
             document.getElementById("creditosTotales").innerHTML = creditos;
             document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
 
             tiradas--;
+
 
         } else {
             document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
@@ -1089,7 +1109,9 @@ function tiradasAutomaticas() {
 
         // Ejecutar tiradas automáticas con un intervalo
         intervaloTiradas = setInterval(function () {
+
             if (tiradas > 0 && apuesta <= creditos) {
+
                 document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
                 girarCarretes(carretes);
                 // Descontar apuesta
@@ -1098,6 +1120,7 @@ function tiradasAutomaticas() {
                 document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
 
                 tiradas--;
+
 
             } else {
                 // Si no hay más tiradas o créditos insuficientes, detener
