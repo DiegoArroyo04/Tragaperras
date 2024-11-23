@@ -77,10 +77,6 @@
 
     }
 
-
-
-
-
     .hora {
         font-family: 'Lilita One';
         font-size: 1.5vw;
@@ -484,7 +480,7 @@
         background-position: center;
         background-repeat: no-repeat;
         width: 75%;
-        margin: 2% auto;
+        margin: 0.5% auto;
         border-radius: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         display: flex;
