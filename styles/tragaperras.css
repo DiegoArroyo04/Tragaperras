@@ -584,7 +584,7 @@
         padding-top: 0;
         border-radius: 10px;
         width: 30%;
-        height: 40%;
+        height: 45%;
         text-align: center;
     }
 
@@ -598,7 +598,7 @@
         position: absolute;
         width: 20vw;
         /* Mantén el tamaño que prefieras */
-        top: 28%;
+        top: 25%;
         /* Controla cuánto sobresale por arriba */
         left: 40.5%;
         /* Posición horizontal centrada respecto al padre */
@@ -611,7 +611,7 @@
     .girafaPremio {
         height: 18vh;
         animation: crecerReducir 1s infinite;
-        padding-bottom: 2%;
+        padding-bottom: 4%;
     }
 
     .mensajeVictoria {

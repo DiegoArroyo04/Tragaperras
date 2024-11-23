@@ -122,6 +122,7 @@ i18next.init({
 });
 
 window.addEventListener("load", function () {
+    document.getElementById("modalVictoria").style.display = "flex";
 
     //Cargar hora por primera vez
     cargarHoraInicial();
@@ -852,11 +853,11 @@ function girarCarretes(carretes) {
         }
 
         // PARAMOS LA ANIMACION ESPERANDO UN POCO PARA QUE DE TIEMPO A QUE LLEGUE A SU POSICION INICIAL
-        setTimeout(() => {
-            for (i = 0; i < carrete1.length; i++) {
-                carrete1[i].classList.remove('girar');
-            }
-        }, 50);
+
+        for (i = 0; i < carrete1.length; i++) {
+            carrete1[i].classList.remove('girar');
+        }
+
 
 
         sonidoCarrete.play();
@@ -895,11 +896,11 @@ function girarCarretes(carretes) {
             }
 
             // PARAMOS LA ANIMACION ESPERANDO UN POCO PARA QUE DE TIEMPO A QUE LLEGUE A SU POSICION INICIAL
-            setTimeout(() => {
-                for (i = 0; i < carrete2.length; i++) {
-                    carrete2[i].classList.remove('girar');
-                }
-            }, 50);
+
+            for (i = 0; i < carrete2.length; i++) {
+                carrete2[i].classList.remove('girar');
+            }
+
 
             sonidoCarrete.play();
 
@@ -937,11 +938,11 @@ function girarCarretes(carretes) {
                 }
 
                 // PARAMOS LA ANIMACION ESPERANDO UN POCO PARA QUE DE TIEMPO A QUE LLEGUE A SU POSICION INICIAL
-                setTimeout(() => {
-                    for (i = 0; i < carrete3.length; i++) {
-                        carrete3[i].classList.remove('girar');
-                    }
-                }, 50);
+
+                for (i = 0; i < carrete3.length; i++) {
+                    carrete3[i].classList.remove('girar');
+                }
+
 
                 sonidoCarrete.play();
 
