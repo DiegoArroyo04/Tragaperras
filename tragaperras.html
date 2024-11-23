@@ -164,7 +164,7 @@
             <div class="contenidoModal">
                 <span id="cerrarModalDepositar" class="cerrarModal">&times;</span>
                 <div id="depositar" class="depositarYRetirar">
-                    <h1>DEPOSITAR</h1>
+                    <h1 id="depositarTitulo">DEPOSITAR</h1>
                     <input type="number" id="inputDeposito" class="inputModal"
                         placeholder="Introduce la cantidad que deseas depositar">
                     <div class="botonesModal">
@@ -178,7 +178,7 @@
             <div class="contenidoModal">
                 <span id="cerrarModalRetirar" class="cerrarModal">&times;</span>
                 <div id="retirar" class="depositarYRetirar">
-                    <h1>RETIRAR</h1>
+                    <h1 id="retirarTitulo">RETIRAR</h1>
                     <input type="number" id="inputRetiro" class="inputModal"
                         placeholder="Introduce la cantidad que deseas retirar">
                     <div class="botonesModal">
@@ -193,7 +193,7 @@
             <div class="contenidoModal">
                 <span id="cerrarModalDepositarCreditos" class="cerrarModal">&times;</span>
                 <div id="depositarCreditos" class="depositarYRetirar">
-                    <h1>CONVERTIR EUROS A CREDITOS</h1>
+                    <h1 id="insertarCreditosTitulo">CONVERTIR EUROS A CREDITOS</h1>
                     <h1 id="saldoCreditosInfo" class="saldoCreditosInfo">Saldo actual:0€</h1>
                     <input type="number" id="inputEurosACreditos" class="inputModal"
                         placeholder="Introduce la cantidad de euros que deseas convertir a creditos">
@@ -209,10 +209,10 @@
             <div class="contenidoModal">
                 <span id="cerrarModalRetirarCreditos" class="cerrarModal">&times;</span>
                 <div id="retirarCreditos" class="depositarYRetirar">
-                    <h1>CONVERTIR CREDITOS A EUROS</h1>
+                    <h1 id="retirarCreditosTitulo">CONVERTIR CREDITOS A EUROS</h1>
                     <h1 id="creditosInfo" class="saldoCreditosInfo">Creditos actuales:0</h1>
                     <input type="number" id="inputRetiroCreditos" class="inputModal"
-                        placeholder="Introduce la cantidad que deseas convertir a euros">
+                        placeholder="Introduce la cantidad de creditos que deseas convertir a euros">
                     <div class="botonesModal">
                         <button id="retirarCreditosBtn" class="botonModal">Retirar creditos</button>
                         <button id="abrirModalDepositarCreditos" class="botonModal">Convertir euros a creditos</button>
@@ -232,10 +232,10 @@
         <div id="modalAjustes" class="modal">
             <div class="contenidoModal contenidoAjustesModal">
                 <span id="cerrarModalAjustes" class="cerrarModalError">&times;</span>
-                <h2>Ajustes</h2>
+                <h2 id="tituloAjustes">Ajustes</h2>
                 <div class="opcionAjustes">
-                    <h3 id="idioma">Cambiar Idioma A Ingles:</h3>
-                    <img src="assets/iconoIngles.png" alt="Idioma" class="icono">
+                    <h3 id="cambiarIdiomaTexto">Cambiar Idioma A Ingles:</h3>
+                    <img id="idioma" src="assets/iconoIngles.png" alt="Idioma" class="icono">
                 </div>
                 <div class="opcionAjustes">
                     <h3 id="textoModoOscuro">Cambiar A Modo Oscuro:</h3>

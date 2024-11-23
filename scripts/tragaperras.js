@@ -37,9 +37,92 @@ var carretes = [
     [girafa, arbol, loro, platanos, flor, flor, platanos, platanos, loro, arbol, flor, platanos, flor, loro, flor]
 ];
 
+//IDIOMAS
+var idiomaActual = 'es';
+i18next.init({
+    lng: 'es', // Idioma predeterminado
+    resources: {
+        es: {
+            translation: {
+                saldo: "Saldo:{{saldo}}€",
+                saldoActual: "Saldo actual:{{saldo}}€",
+                tirar: "¡TIRE PARA GANAR!",
+                girosGratis: "¡HAS GANADO 10 GIROS GRATIS!",
+                depositarTitulo: "DEPOSITAR",
+                placeholderDeposito: "Introduce la cantidad que deseas depositar",
+                depositarBtn: "Depositar",
+                abrirModalRetirar: "Retirar",
+                retirarTitulo: "RETIRAR",
+                placeholderRetiro: "Introduce la cantidad que deseas retirar",
+                retirarBtn: "Retirar",
+                abrirModalDepositar: "Depositar",
+                textoConfirmacionDeposito: "Has depositado ",
+                textoErrorFormatoDeposito: "Formato de deposito no válido",
+                textoConfirmacionRetiro: "Has retirado ",
+                textoErrorRetiroSaldoInsuficiente: "No tienes suficiente saldo para retirar esa cantidad.",
+                textoErrorFormatoRetiro: "Por favor, ingresa una cantidad válida.",
+                tituloAjustes: "Ajustes",
+                cambiarIdiomaTexto: "Cambiar Idioma A Ingles:",
+                textoModoOscuro: "Cambiar A Modo Oscuro:",
+                textoModoColor: "Cambiar A Modo Color:",
+                creditosBoton: "Insertar Creditos",
+                insertarCreditosTitulo: "CONVERTIR EUROS A CREDITOS",
+                placeholderEurosACreditos: "Introduce la cantidad de euros que deseas convertir a creditos",
+                convertirBtn: "Convertir a creditos",
+                abrirModalRetirarCreditos: "Retirar creditos",
+                retirarCreditosTitulo: "CONVERTIR CREDITOS A EUROS",
+                creditosActuales: "Creditos actuales:{{creditos}}",
+                hasConvertido: "Has convertido ",
+                eurosA: "€ a ",
+                creditosTextoModalConversion: " creditos",
+                errorEurosInsuficientesConversion: "No tienes tantos euros disponibles para convertir.",
+                placeholderCreditosEuros: "Introduce la cantidad de creditos que deseas convertir a euros",
+            }
+        },
+        en: {
+            translation: {
+                saldo: "Balance:{{saldo}}€",
+                saldoActual: "Current Balance:{{saldo}}€",
+                tirar: "SPIN TO WIN!",
+                girosGratis: "YOU'VE WON 10 FREE SPINS!",
+                depositarTitulo: "DEPOSIT",
+                placeholderDeposito: "Enter the amount you want to deposit",
+                depositarBtn: "Deposit",
+                abrirModalRetirar: "Withdraw",
+                retirarTitulo: "WITHDRAW",
+                placeholderRetiro: "Enter the amount you want to withdraw",
+                retirarBtn: "Withdraw",
+                abrirModalDepositar: "Deposit",
+                textoConfirmacionDeposito: "You have deposited ",
+                textoErrorFormatoDeposito: "Invalid deposit format",
+                textoConfirmacionRetiro: "You have withdrawn ",
+                textoErrorRetiroSaldoInsuficiente: "You don't have enough balance to withdraw that amount.",
+                textoErrorFormatoRetiro: "Please enter a valid amount.",
+                tituloAjustes: "Settings",
+                cambiarIdiomaTexto: "Change Language To Spanish",
+                textoModoOscuro: "Switch to Dark Mode:",
+                textoModoColor: "Switch to Color Mode:",
+                creditosBoton: "Insert Credits",
+                insertarCreditosTitulo: "BECOME EUROS TO CREDITS",
+                placeholderEurosACreditos: "Enter the amount of euros you want to convert to credits",
+                convertirBtn: "Convert to credits",
+                abrirModalRetirarCreditos: "Withdraw credits",
+                retirarCreditosTitulo: "BECOME CREDITS TO EUROS",
+                creditosActuales: "Current credits:{{creditos}}",
+                hasConvertido: "You have converted ",
+                eurosA: "€ to ",
+                creditosTextoModalConversion: " credits",
+                errorEurosInsuficientesConversion: "You don't have that many euros available to convert.",
+                placeholderCreditosEuros: "Enter the amount of credits you want to convert to euros",
+            }
+        }
+    }
+}, function (err, t) {
+    actualizarTexto(); // Traduce el contenido al cargar
+});
 
 window.addEventListener("load", function () {
-    document.getElementById("modalVictoria").style.display = "flex";
+
     //Cargar hora por primera vez
     cargarHoraInicial();
 
@@ -210,14 +293,11 @@ window.addEventListener("load", function () {
         // SI PULSAMOS EN EL BOTON DE DEPOSITAR EN EL MODAL DE RETIRAR  SE ABRE EL MODAL DE DEPOSITAR
         document.getElementById("abrirModalDepositar").addEventListener('click', function () {
 
-
-
             document.getElementById("modalRetirar").style.display = "none";
 
             document.getElementById("inputRetiro").value = "";
 
             document.getElementById("modalDepositar").style.display = "flex";
-
 
         });
     });
@@ -225,25 +305,23 @@ window.addEventListener("load", function () {
     //GUARDAR SALDO Y ACTUALIZARLO
     document.getElementById("depositarBtn").addEventListener('click', function () {
 
-
         // CONVERTIR A DECIMAL
         var deposito = parseFloat(document.getElementById("inputDeposito").value);
-
 
         if (!isNaN(deposito) && deposito > 0) {
             saldo += deposito;
             //SALDO PARA HEADER
-            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
+            document.getElementById("saldo").textContent = i18next.t('saldo', { saldo: saldo });
             //EN EL MODAL DE CREDITOS APARECERA EL SALDO ACTUAL 
-            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
-            mostrarError("Has depositado " + deposito + "€");
+            document.getElementById("saldoCreditosInfo").textContent = i18next.t('saldoActual', { saldo: saldo });
+            mostrarError(i18next.t('textoConfirmacionDeposito') + deposito + "€");
         } else {
-            mostrarError("Formato de deposito no válido");
+            mostrarError(i18next.t('textoErrorFormatoDeposito'));
         }
-
 
         document.getElementById("modalDepositar").style.display = "none";
         document.getElementById("inputDeposito").value = "";
+
     });
 
     // RETIRAR SALDO Y ACTUALIZARLO
@@ -255,15 +333,13 @@ window.addEventListener("load", function () {
         // Verifica si el valor es válido y que no sea mayor que el saldo
         if (!isNaN(retiro) && retiro > 0 && retiro <= saldo) {
             saldo -= retiro; // Resta el saldo retirado
-            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
-            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
-            mostrarError("Has retirado " + retiro + "€");
+            document.getElementById("saldo").textContent = i18next.t('saldo', { saldo: saldo });
+            document.getElementById("saldoCreditosInfo").textContent = i18next.t('saldoActual', { saldo: saldo });
+            mostrarError(i18next.t('textoConfirmacionRetiro') + retiro + "€");
         } else if (retiro > saldo) {
-            mostrarError("No tienes suficiente saldo para retirar esa cantidad.");
-
+            mostrarError(i18next.t('textoErrorRetiroSaldoInsuficiente'));
         } else {
-            mostrarError("Por favor, ingresa una cantidad válida.");
-
+            mostrarError(i18next.t('textoErrorFormatoRetiro'));
         }
 
         // Cierra el modal después del retiro
@@ -377,14 +453,34 @@ window.addEventListener("load", function () {
         const iconoModoOscuro = document.getElementById("modoOscuro"); // ID del elemento de icono
 
         if (document.body.classList.contains("modo-oscuro")) {
-            document.getElementById("textoModoOscuro").innerHTML = "Cambiar A Modo Color:"
+            document.getElementById("textoModoOscuro").textContent = i18next.t('textoModoColor');
             iconoModoOscuro.src = "./assets/modoClaro.png";// Icono para el modo claro
 
         } else {
-            document.getElementById("textoModoOscuro").innerHTML = "Cambiar A Modo Oscuro:"
+            document.getElementById("textoModoOscuro").textContent = i18next.t('textoModoOscuro');
             iconoModoOscuro.src = "./assets/modoOscuro.png"; // Icono para el modo oscuro
         }
 
+    });
+
+    //CAMBIAR IDIOMA
+    document.getElementById("idioma").addEventListener("click", function () {
+
+        //ALTERNAR IDIOMAS
+        idiomaActual = i18next.language === 'es' ? 'en' : 'es';
+
+        // Cambiar idioma en i18next
+        i18next.changeLanguage(idiomaActual, function () {
+            actualizarTexto(); // Vuelve a traducir el texto
+        });
+
+        // Cambiar el ícono del idioma
+        const icono = document.getElementById("idioma");
+        if (idiomaActual === 'en') {
+            icono.src = "./assets/iconoEspaña.png";
+        } else {
+            icono.src = "./assets/iconoIngles.png";
+        }
     });
 
     //CREDITOS
@@ -399,20 +495,24 @@ window.addEventListener("load", function () {
         var eurosACreditos = parseFloat(document.getElementById("inputEurosACreditos").value);
 
         if (!isNaN(eurosACreditos) && eurosACreditos > 0 && eurosACreditos <= saldo) {
-            mostrarError("Has convertido " + eurosACreditos + "€ a " + (eurosACreditos * 100) + " creditos");
+
+            mostrarError(i18next.t('hasConvertido') + eurosACreditos + i18next.t('eurosA') + (eurosACreditos * 100) + i18next.t('creditosTextoModalConversion'));
             creditos += (eurosACreditos * 100);
             saldo -= eurosACreditos;
-            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
-            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
-            document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+            document.getElementById("saldo").textContent = i18next.t('saldo', { saldo: saldo });
+            document.getElementById("saldoCreditosInfo").textContent = i18next.t('saldoActual', { saldo: saldo });
+            document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });;
             document.getElementById("creditosTotales").innerHTML = creditos;
+            document.getElementById("inputEurosACreditos").value = "";
 
         } else if (eurosACreditos > saldo) {
 
-            mostrarError("No tienes tantos euros disponibles para convertir.");
+            mostrarError(i18next.t('errorEurosInsuficientesConversion'));
+
         } else {
 
-            mostrarError("Por favor, ingresa una cantidad válida.");
+            mostrarError(i18next.t('textoErrorFormatoRetiro'));
+
         }
 
     });
@@ -429,7 +529,6 @@ window.addEventListener("load", function () {
     //CONVERSION DE CREDITOS A EUROS
     document.getElementById("retirarCreditosBtn").addEventListener("click", function () {
         var creditosAEuros = parseFloat(document.getElementById("inputRetiroCreditos").value);
-
 
         if (!isNaN(creditosAEuros) && creditosAEuros > 0 && creditosAEuros <= creditos) {
             mostrarError("Has convertido " + creditosAEuros + " creditos a " + (creditosAEuros / 100) + " €");
@@ -561,6 +660,48 @@ window.addEventListener("load", function () {
 
 
 });
+function actualizarTexto() {
+    // Traduce el saldo dinámico
+    var saldoElement = document.getElementById("saldo");
+    saldoElement.textContent = i18next.t('saldo', { saldo: saldo });
+
+    var saldoActualElement = document.getElementById("saldoCreditosInfo");
+    saldoActualElement.textContent = i18next.t('saldoActual', { saldo: saldo });
+
+    var creditosActuales = document.getElementById("creditosInfo");
+    creditosActuales.textContent = i18next.t('creditosActuales', { creditos: creditos });
+
+
+    // ELEMENTOS ESTATICOS
+    document.getElementById("textoTragaperras").textContent = i18next.t('tirar');
+    document.querySelector(".mensajeVictoria").textContent = i18next.t('girosGratis');
+    document.getElementById("depositarTitulo").textContent = i18next.t('depositarTitulo');
+    document.getElementById("inputDeposito").setAttribute("placeholder", i18next.t('placeholderDeposito'));
+    document.getElementById("depositarBtn").textContent = i18next.t('depositarBtn');
+    document.getElementById("abrirModalRetirar").textContent = i18next.t('abrirModalRetirar');
+    document.getElementById("retirarTitulo").textContent = i18next.t('retirarTitulo');
+    document.getElementById("inputRetiro").setAttribute("placeholder", i18next.t('placeholderRetiro'));
+    document.getElementById("retirarBtn").textContent = i18next.t('retirarBtn');
+    document.getElementById("abrirModalDepositar").textContent = i18next.t('abrirModalDepositar');
+    document.getElementById("tituloAjustes").textContent = i18next.t('tituloAjustes');
+    document.getElementById("cambiarIdiomaTexto").textContent = i18next.t('cambiarIdiomaTexto');
+    document.getElementById("textoModoOscuro").textContent = i18next.t('textoModoOscuro');
+    document.getElementById("creditos").textContent = i18next.t('creditosBoton');
+    document.getElementById("insertarCreditosTitulo").textContent = i18next.t('insertarCreditosTitulo');
+    document.getElementById("inputEurosACreditos").setAttribute("placeholder", i18next.t('placeholderEurosACreditos'));
+    document.getElementById("convertirBtn").textContent = i18next.t('convertirBtn');
+    document.getElementById("abrirModalRetirarCreditos").textContent = i18next.t('abrirModalRetirarCreditos');
+    document.getElementById("retirarCreditosTitulo").textContent = i18next.t('retirarCreditosTitulo');
+    document.getElementById("inputRetiroCreditos").setAttribute("placeholder", i18next.t('placeholderCreditosEuros'));
+
+
+
+
+
+
+
+}
+
 function cargarHoraInicial() {
     // Pedir permiso al usuario para obtener su ubicación
     if (navigator.geolocation) {
