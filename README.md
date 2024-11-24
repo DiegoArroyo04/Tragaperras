@@ -52,3 +52,12 @@ El proyecto incluye:
    ```bash
    git clone https://github.com/DiegoArroyo04/Tragaperras.git
    cd proyecto-tragaperras
+   
+2. **Abre el archivo index.html en un navegador**:
+
+   Puedes hacer doble clic en el archivo index.html o usar una extensión como Live Server en Visual Studio Code para ejecutarlo localmente.
+   
+3. **Disfruta del juego**:
+   
+   Empieza a jugar girando los carretes con el botón o la barra espaciadora.
+   Configura el idioma desde los ajustes (predeterminado: español).
