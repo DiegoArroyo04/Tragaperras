@@ -50,5 +50,5 @@ El proyecto incluye:
 
 1. **Clona este repositorio**:
    ```bash
-   git clone [https://github.com/tu-usuario/proyecto-tragaperras.git](https://github.com/DiegoArroyo04/Tragaperras.git)
+   git clone https://github.com/DiegoArroyo04/Tragaperras.git
    cd proyecto-tragaperras
