@@ -8,7 +8,6 @@
 
     }
 
-
     * {
         box-sizing: border-box;
     }
@@ -44,9 +43,6 @@
         height: 100%;
     }
 
-
-
-
     .contentenedorVolverMain {
         display: flex;
         align-items: center;
@@ -64,8 +60,6 @@
         width: 5vw;
         height: 10vh;
     }
-
-
 
     h1 {
         font-family: 'Lilita One';
@@ -86,7 +80,6 @@
         -webkit-background-clip: text;
         color: transparent;
         -webkit-text-stroke: 0.10vh #003049;
-
 
     }
 
@@ -174,7 +167,6 @@
         background-color: rgba(0, 0, 0, 0.5);
         justify-content: center;
     }
-
 
     .tablaPremios h2 {
         font-family: 'Lilita One';
@@ -780,6 +772,7 @@
     .tituloTiradas {
         width: 100%;
         font-size: 1.3vw;
+        height: auto;
     }
 
     .iniciarTiradas:hover {

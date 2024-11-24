@@ -114,12 +114,12 @@
                     </div>
                     <div class="navegacionFooterJuego">
                         <img src="assets/iconoInformacion.png" id="info" class="icono">
-                        <p>CREDITOS:</p>
+                        <p id="creditosTexto">CREDITOS:</p>
                         <p id="creditosTotales" class="creditosApuesta">0</p>
                     </div>
                     <div class="navegacionFooterJuego">
                         <img src="assets/sonido.png" id="sonido" class="icono">
-                        <p>APUESTA:</p>
+                        <p id="apuestaTexto">APUESTA:</p>
                         <p id="apuesta" class="creditosApuesta">20</p>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
             <div id="modalTiradasAutomaticasPantalla" class="modalSonidoPantalla">
                 <div id="modalTiradasAutomaticasContenido" class="modalTiradasAutomaticasContenido">
                     <span id="cerrarModalTiradas" class="cerrarModalTiradas">&times;</span>
-                    <p class="tituloTiradas">NUMERO DE TIRADAS AUTOMÁTICAS</p>
+                    <p id="tituloTiradas" class="tituloTiradas">NUMERO DE TIRADAS AUTOMÁTICAS</p>
                     <div class="contenedorElegirTiradas">
                         <input type="range" id="barraTiradas" class="barraTiradas" min="0" max="100" value="70">
                         <span id="valorTiradas" class="valorTiradas">70</span>
@@ -255,19 +255,19 @@
 
         <div id="modalTablaPremios" class="tablaPremios ">
             <span id="cerrarModalTablaPremios" class="cerrarModalError">&times;</span>
-            <h2>Tabla de Premios</h2>
+            <h2 id="tituloTablaPremios">Tabla de Premios</h2>
             <table class="tablaEstilos">
                 <tr>
-                    <th>Combinación</th>
-                    <th><img src="assets/iconoGirafa.png" alt="Jirafa"> Jirafa</th>
-                    <th><img src="assets/iconoArbol.png" alt="Árbol"> Árbol</th>
-                    <th><img src="assets/iconoLoro.png" alt="Loro"> Loro</th>
-                    <th><img src="assets/iconoPlatanos.png" alt="Plátano"> Plátano</th>
-                    <th><img src="assets/iconoFlor.png" alt="Flor"> Flor</th>
+                    <th id="combinacion">Combinación</th>
+                    <th id="jirafa"><img src="assets/iconoGirafa.png" alt="Jirafa"> Jirafa</th>
+                    <th id="arbol"><img src="assets/iconoArbol.png" alt="Árbol"> Árbol</th>
+                    <th id="loro"><img src="assets/iconoLoro.png" alt="Loro"> Loro</th>
+                    <th id="platanos"><img src="assets/iconoPlatanos.png" alt="Plátanos"> Plátanos</th>
+                    <th id="flor"><img src="assets/iconoFlor.png" alt="Flor"> Flor</th>
 
                 </tr>
                 <tr>
-                    <td>Línea central</td>
+                    <td id="lineaCentral">Línea central</td>
                     <td>x100</td>
                     <td>x30</td>
                     <td>x20</td>
@@ -275,7 +275,7 @@
                     <td>x5</td>
                 </tr>
                 <tr>
-                    <td>Línea superior/inferior</td>
+                    <td id="lineaSuperiorInferior">Línea superior/inferior</td>
                     <td>x50</td>
                     <td>x15</td>
                     <td>x10</td>
@@ -283,7 +283,7 @@
                     <td>x2.5</td>
                 </tr>
                 <tr>
-                    <td>Línea en Diagonal</td>
+                    <td id="lineaDiagonal">Línea en Diagonal</td>
                     <td>x50</td>
                     <td>x15</td>
                     <td>x10</td>
@@ -291,13 +291,15 @@
                     <td>x2.5</td>
                 </tr>
                 <tr>
-                    <td>Activador de Giros</td>
-                    <td colspan="5">3 Jirafas activan 10 giros gratuitos con el multiplicador de la jirafa aplicado a
+                    <td id="activadorGirosTabla">Activador de Giros</td>
+                    <td colspan="5" id="activadorGirosDescripcion">3 Jirafas activan 10 giros gratuitos con el
+                        multiplicador de la jirafa aplicado a
                         todos los símbolos.</td>
                 </tr>
                 <tr>
-                    <td>Acumulador de multiplicadores</td>
-                    <td colspan="5">¡Si se obtienen varias combinaciones ganadoras, ¡los multiplicadores de todas se
+                    <td id="acumuladorMultiplicadores">Acumulador de multiplicadores</td>
+                    <td colspan="5" id="acumuladorMultiplicadoresDescripcion">¡Si se obtienen varias combinaciones
+                        ganadoras, ¡los multiplicadores de todas se
                         suman!
                     </td>
                 </tr>

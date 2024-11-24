@@ -8,6 +8,7 @@ var barraTiradas = document.getElementById("barraTiradas");
 var valorTiradas = document.getElementById("valorTiradas");
 var tiradas = barraTiradas.value;
 var activadorGiros = false;
+var hayPremio = false;
 
 
 //CANCION 
@@ -21,7 +22,6 @@ var creditos = 0;
 var apuesta = 20;
 
 var intervaloTiradas = null;
-
 
 //ICONOS
 var girafa = "iconoGirafa.png";
@@ -77,6 +77,36 @@ i18next.init({
                 creditosTextoModalConversion: " creditos",
                 errorEurosInsuficientesConversion: "No tienes tantos euros disponibles para convertir.",
                 placeholderCreditosEuros: "Introduce la cantidad de creditos que deseas convertir a euros",
+                abrirModalDepositarCreditos: "Convertir euros a creditos",
+                creditosA: " creditos a ",
+                errorCreditosInsuficientesConversion: "No tienes tantos creditos disponibles para convertir.",
+                tituloTablaPremios: "Tabla de Premios",
+                combinacion: "Combinación",
+                jirafa: "Jirafa",
+                arbol: "Árbol",
+                loro: "Loro",
+                platanos: "Plátanos",
+                flor: "Flor",
+                lineaCentral: "Línea central",
+                lineaSuperiorInferior: "Línea superior/inferior",
+                lineaDiagonal: "Línea en Diagonal",
+                activadorGirosTabla: "Activador de Giros",
+                activadorGirosDescripcion: "3 Jirafas activan 10 giros gratuitos con el multiplicador de la jirafa aplicado a todos los símbolos.",
+                acumuladorMultiplicadores: "Acumulador de multiplicadores",
+                acumuladorMultiplicadoresDescripcion: "¡Si se obtienen varias combinaciones ganadoras, ¡los multiplicadores de todas se suman!",
+                creditosTexto: "CREDITOS:",
+                apuestaTexto: "APUESTA:",
+                tituloTiradas: "NUMERO DE TIRADAS AUTOMÁTICAS",
+                iniciarTiradas: "INICIAR TIRADAS AUTOMÁTICAS",
+                apuestaMaxima: "¡APUESTA MAXIMA ALCANZADA!",
+                apuestaMinima: "¡APUESTA MINIMA ALCANZADA!",
+                buenaSuerte: "¡BUENA SUERTE!",
+                tiradasRestantes: "TIRADAS RESTANTES: ",
+                noCreditosParaApostar: "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!",
+                hasGanado: "¡HAS GANADO ",
+                creditosModalVictoria: " CREDITOS!",
+                ganancias: "GANANCIAS: ",
+
             }
         },
         en: {
@@ -114,6 +144,36 @@ i18next.init({
                 creditosTextoModalConversion: " credits",
                 errorEurosInsuficientesConversion: "You don't have that many euros available to convert.",
                 placeholderCreditosEuros: "Enter the amount of credits you want to convert to euros",
+                abrirModalDepositarCreditos: "Convert euros to credits",
+                creditosA: " credits to ",
+                errorCreditosInsuficientesConversion: "You don't have that many credits available to convert.",
+                tituloTablaPremios: "Table of Awards",
+                combinacion: "Combination",
+                jirafa: "Giraffe",
+                arbol: "Tree",
+                loro: "Parrot",
+                platanos: "Bananas",
+                flor: "Flower",
+                lineaCentral: "Central line",
+                lineaSuperiorInferior: "Top / Bottom Line",
+                lineaDiagonal: "Diagonal Line",
+                activadorGirosTabla: "Free Spins",
+                activadorGirosDescripcion: "3 giraffes activate 10 free spins with the giraffe multiplier applied to all symbols.",
+                acumuladorMultiplicadores: "Multiplier accumulator",
+                acumuladorMultiplicadoresDescripcion: "If multiple winning combinations are obtained, all multipliers are add up!",
+                creditosTexto: "CREDITS:",
+                apuestaTexto: "BET:",
+                tituloTiradas: "SELECT A NUMBER OF AUTOMATIC SPINS",
+                iniciarTiradas: "START AUTOMATIC STRIPS",
+                apuestaMaxima: "BET MAXIMUM REACHED!",
+                apuestaMinima: "BET MINIMUM REACHED!",
+                buenaSuerte: "GOOD LOOK!",
+                tiradasRestantes: "REMAINING SPINS: ",
+                noCreditosParaApostar: "YOU HAVE NO SUFFICIENT CREDITS FOR THAT BET!",
+                hasGanado: "YOU'VE WON ",
+                creditosModalVictoria: " CREDITS!",
+                ganancias: "WINS: ",
+
             }
         }
     }
@@ -122,7 +182,6 @@ i18next.init({
 });
 
 window.addEventListener("load", function () {
-    document.getElementById("modalVictoria").style.display = "flex";
 
     //Cargar hora por primera vez
     cargarHoraInicial();
@@ -196,18 +255,18 @@ window.addEventListener("load", function () {
         }
 
         //SI ES EL BOTON DE TIRAR
-        if (document.getElementById("botonTirar").src.includes = "botonTirar.png") {
+        if (document.getElementById("botonTirar").src.includes("botonTirar.png")) {
             if (apuesta <= creditos) {
                 girarCarretes(carretes);
                 //QUITAR APUESTA
                 creditos -= apuesta;
                 document.getElementById("creditosTotales").innerHTML = creditos;
-                document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+                document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });
             } else {
 
-                document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
+                document.getElementById("textoTragaperras").innerHTML = i18next.t('noCreditosParaApostar');
                 setTimeout(() => {
-                    document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+                    document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
                 }, 2000);
 
             }
@@ -246,22 +305,28 @@ window.addEventListener("load", function () {
 
         if (event.key === ' ') {
             event.preventDefault(); // Prevenir el desplazamiento de la página
+
+
             //SI ES EL BOTON DE TIRAR QUE GIRE
-            if (document.getElementById("botonTirar").src.includes = "botonTirar.png" && activadorGiros == false) {
+            if (document.getElementById("botonTirar").src.includes("botonTirar.png") && activadorGiros == false) {
                 if (apuesta <= creditos) {
                     girarCarretes(carretes);
                     //QUITAR APUESTA
                     creditos -= apuesta;
                     document.getElementById("creditosTotales").innerHTML = creditos;
-                    document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+                    document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });
                 } else {
 
-                    document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
+                    document.getElementById("textoTragaperras").innerHTML = i18next.t('noCreditosParaApostar');
                     setTimeout(() => {
-                        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+                        document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
                     }, 2000);
 
                 }
+            }
+            //SI ES EL BOTON DE DETENER Y EL BONO ESTA ACTIVO BLOQUEAR EL BOTON PARA QUE NO HAGA NADA
+            if (document.getElementById("botonTirar").src.includes("tiradasAutomaticasParar.png") && activadorGiros == true) {
+                return;
             }
         }
     });
@@ -502,7 +567,7 @@ window.addEventListener("load", function () {
             saldo -= eurosACreditos;
             document.getElementById("saldo").textContent = i18next.t('saldo', { saldo: saldo });
             document.getElementById("saldoCreditosInfo").textContent = i18next.t('saldoActual', { saldo: saldo });
-            document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });;
+            document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });
             document.getElementById("creditosTotales").innerHTML = creditos;
             document.getElementById("inputEurosACreditos").value = "";
 
@@ -532,21 +597,18 @@ window.addEventListener("load", function () {
         var creditosAEuros = parseFloat(document.getElementById("inputRetiroCreditos").value);
 
         if (!isNaN(creditosAEuros) && creditosAEuros > 0 && creditosAEuros <= creditos) {
-            mostrarError("Has convertido " + creditosAEuros + " creditos a " + (creditosAEuros / 100) + " €");
+            mostrarError(i18next.t('hasConvertido') + creditosAEuros + i18next.t('creditosA') + (creditosAEuros / 100) + " €");
             creditos -= creditosAEuros;
             saldo += (creditosAEuros / 100);
-
-            document.getElementById("saldo").innerHTML = "Saldo:" + saldo + "€";
-            document.getElementById("saldoCreditosInfo").innerHTML = "Saldo Actual:" + saldo + "€";
-            document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+            document.getElementById("saldo").textContent = i18next.t('saldo', { saldo: saldo });
+            document.getElementById("saldoCreditosInfo").textContent = i18next.t('saldoActual', { saldo: saldo });
+            document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });
             document.getElementById("creditosTotales").innerHTML = creditos;
-
+            document.getElementById("inputRetiroCreditos").value = "";
         } else if (creditosAEuros > creditos) {
-
-            mostrarError("No tienes tantos creditos disponibles para convertir.");
+            mostrarError(i18next.t('errorCreditosInsuficientesConversion'));
         } else {
-
-            mostrarError("Por favor, ingresa una cantidad válida.");
+            mostrarError(i18next.t('textoErrorFormatoRetiro'));
         }
     });
 
@@ -694,12 +756,26 @@ function actualizarTexto() {
     document.getElementById("abrirModalRetirarCreditos").textContent = i18next.t('abrirModalRetirarCreditos');
     document.getElementById("retirarCreditosTitulo").textContent = i18next.t('retirarCreditosTitulo');
     document.getElementById("inputRetiroCreditos").setAttribute("placeholder", i18next.t('placeholderCreditosEuros'));
-
-
-
-
-
-
+    document.getElementById("retirarCreditosBtn").textContent = i18next.t('abrirModalRetirarCreditos');
+    document.getElementById("abrirModalDepositarCreditos").textContent = i18next.t('abrirModalDepositarCreditos');
+    document.getElementById("tituloTablaPremios").textContent = i18next.t('tituloTablaPremios');
+    document.getElementById("combinacion").textContent = i18next.t('combinacion');
+    document.getElementById("jirafa").innerHTML = '<img src="assets/iconoGirafa.png" alt="Jirafa"> ' + i18next.t('jirafa');
+    document.getElementById("arbol").innerHTML = '<img src="assets/iconoArbol.png" alt="Árbol"> ' + i18next.t('arbol');
+    document.getElementById("loro").innerHTML = '<img src="assets/iconoLoro.png" alt="Loro"> ' + i18next.t('loro');
+    document.getElementById("platanos").innerHTML = '<img src="assets/iconoPlatanos.png" alt="Plátanos"> ' + i18next.t('platanos');
+    document.getElementById("flor").innerHTML = '<img src="assets/iconoFlor.png" alt="Flor"> ' + i18next.t('flor');
+    document.getElementById("lineaCentral").textContent = i18next.t('lineaCentral');
+    document.getElementById("lineaSuperiorInferior").textContent = i18next.t('lineaSuperiorInferior');
+    document.getElementById("lineaDiagonal").textContent = i18next.t('lineaDiagonal');
+    document.getElementById("activadorGirosTabla").textContent = i18next.t('activadorGirosTabla');
+    document.getElementById("activadorGirosDescripcion").textContent = i18next.t('activadorGirosDescripcion');
+    document.getElementById("acumuladorMultiplicadores").textContent = i18next.t('acumuladorMultiplicadores');
+    document.getElementById("acumuladorMultiplicadoresDescripcion").textContent = i18next.t('acumuladorMultiplicadoresDescripcion');
+    document.getElementById("creditosTexto").textContent = i18next.t('creditosTexto');
+    document.getElementById("apuestaTexto").textContent = i18next.t('apuestaTexto');
+    document.getElementById("tituloTiradas").textContent = i18next.t('tituloTiradas');
+    document.getElementById("iniciarTiradas").textContent = i18next.t('iniciarTiradas');
 
 }
 
@@ -750,22 +826,22 @@ function actualizarEstadoApuesta() {
     if (apuesta == 10000) {
         // Cambiar icono y mensaje para apuesta máxima
         document.getElementById("aumentarApuesta").src = "./assets/aumentarApuestaMaxima.png";
-        document.getElementById("textoTragaperras").innerHTML = "¡APUESTA MAXIMA ALCANZADA!";
+        document.getElementById("textoTragaperras").innerHTML = i18next.t('apuestaMaxima');
         setTimeout(() => {
-            document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+            document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
         }, 2000);
     } else if (apuesta == 20) {
         // Cambiar icono y mensaje para apuesta mínima
         document.getElementById("disminuirApuesta").src = "./assets/disminuirApuestaMinima.png";
-        document.getElementById("textoTragaperras").innerHTML = "¡APUESTA MINIMA ALCANZADA!";
+        document.getElementById("textoTragaperras").innerHTML = i18next.t('apuestaMinima');
         setTimeout(() => {
-            document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+            document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
         }, 2000);
     } else {
         // Restaurar iconos y mensajes para valores intermedios
         document.getElementById("aumentarApuesta").src = "./assets/aumentarApuesta.png";
         document.getElementById("disminuirApuesta").src = "./assets/disminuirApuesta.png";
-        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+        document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
         //SONIDO AUMENTAR Y DISMINUIR APUESTA
         var sonidoAumentarDisminuir = new Audio('assets/aumentarDisminuirApuesta.mp3');
         sonidoAumentarDisminuir.volume = volumen;
@@ -801,8 +877,9 @@ function girarCarretes(carretes) {
         Math.floor(Math.random() * 15),  // Tercer carrete Icono 3
 
     ];
+
     //Actualizamos texto
-    document.getElementById("textoTragaperras").innerHTML = "¡BUENA SUERTE!";
+    document.getElementById("textoTragaperras").innerHTML = i18next.t('buenaSuerte');
 
 
     // Acceder a los carretes y actualizar las imágenes
@@ -830,11 +907,7 @@ function girarCarretes(carretes) {
 
     }, 2000);
 
-
-
     setTimeout(() => {
-
-
 
         //AQUI SE CAMBIA EL RESTO DE IMAGENES DE LA TRAGAPERRAS PARA QUE EN LA PROXIMA TIRADA LOS ICONOS NO SEAN LOS MISMOS Y LA ANIMACION DE GIRO SEA DINAMICA
         for (i = 3; i < carrete1.length; i++) {
@@ -857,7 +930,6 @@ function girarCarretes(carretes) {
         for (i = 0; i < carrete1.length; i++) {
             carrete1[i].classList.remove('girar');
         }
-
 
 
         sonidoCarrete.play();
@@ -948,19 +1020,29 @@ function girarCarretes(carretes) {
 
                 //DEPUES DE TODAS LAS ANIMACIONES ACTIVAMOS QUE SE PUEDA VOLVER A TIRAR Y COMPROBAMOS LOS SIMBOLOS
                 comprobarSimbolos(carrete1, carrete2, carrete3, apuestaActual);
-                estaGirando = false;
+
+                //SI HAY PREMIO ESPERAR A QUE CAMBIE EL TEXTO DE LA TRAGAPERRAS
+                if (hayPremio == true) {
+
+
+                    setTimeout(() => {
+                        estaGirando = false; // Liberar para la siguiente tirada
+                        hayPremio = false;
+                    }, 5000); // Esperar 5 segundos antes de la siguiente tirada
+
+                } else {
+
+                    estaGirando = false;
+                    hayPremio = false;
+                }
 
 
             }, 3000); // Tiempo de duración de la animación (3 segundos)
 
 
-
         }, 3000); // Tiempo de duración de la animación (3 segundos)
 
-
     }, 3000); // Tiempo de duración de la animación (3 segundos)
-
-
 
 }
 
@@ -980,7 +1062,7 @@ function mostrarError(mensaje) {
 
 function comprobarSimbolos(carrete1, carrete2, carrete3, apuestaActual) {
 
-
+    var premioTotal = 0;
 
     var girafa = {
         imagen: "assets/iconoGirafa.png",
@@ -1035,31 +1117,28 @@ function comprobarSimbolos(carrete1, carrete2, carrete3, apuestaActual) {
         arbol.multiHorizontalesArribaAbajo = 50;
         arbol.multiDiagonal = 50;
 
-    } else {
-        flor.multiCentral = 5;
-        flor.multiHorizontalesArribaAbajo = 2.5;
-        flor.multiDiagonal = 2.5;
-
-        platanos.multiCentral = 10;
-        platanos.multiHorizontalesArribaAbajo = 5;
-        platanos.multiDiagonal = 5;
-
-        loro.multiCentral = 20;
-        loro.multiHorizontalesArribaAbajo = 10;
-        loro.multiDiagonal = 10;
-
-
-        arbol.multiCentral = 30;
-        arbol.multiHorizontalesArribaAbajo = 15;
-        arbol.multiDiagonal = 15;
     }
 
+    // Procesar todos los símbolos y acumular premios
+    premioTotal += calcularPremioCombinado(girafa, carrete1, carrete2, carrete3, apuestaActual);
+    premioTotal += calcularPremioCombinado(arbol, carrete1, carrete2, carrete3, apuestaActual);
+    premioTotal += calcularPremioCombinado(loro, carrete1, carrete2, carrete3, apuestaActual);
+    premioTotal += calcularPremioCombinado(platanos, carrete1, carrete2, carrete3, apuestaActual);
+    premioTotal += calcularPremioCombinado(flor, carrete1, carrete2, carrete3, apuestaActual);
 
-    calcularPremioCombinado(girafa, carrete1, carrete2, carrete3, apuestaActual);
-    calcularPremioCombinado(arbol, carrete1, carrete2, carrete3, apuestaActual);
-    calcularPremioCombinado(loro, carrete1, carrete2, carrete3, apuestaActual);
-    calcularPremioCombinado(platanos, carrete1, carrete2, carrete3, apuestaActual);
-    calcularPremioCombinado(flor, carrete1, carrete2, carrete3, apuestaActual);
+    // Si hay algún multiplicador, calcular el premio
+    if (premioTotal > 0) {
+        creditos += premioTotal;
+        document.getElementById("creditosTotales").innerHTML = creditos;
+        document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });
+        mostrarModalVictoria(i18next.t('hasGanado') + premioTotal + i18next.t('creditosModalVictoria'));
+        document.getElementById("textoTragaperras").innerHTML = i18next.t('ganancias') + premioTotal + i18next.t('creditosModalVictoria');
+        setTimeout(() => document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar'), 5000);
+        hayPremio = true;
+    } else {
+        document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
+    }
+
 
 }
 function calcularPremioCombinado(simbolo, carrete1, carrete2, carrete3, apuestaActual) {
@@ -1115,21 +1194,8 @@ function calcularPremioCombinado(simbolo, carrete1, carrete2, carrete3, apuestaA
         combinacionesGanadoras.push([carrete3[0], carrete2[1], carrete1[2]]);
     }
 
-    // Si hay algún multiplicador, calcular el premio
-    if (multiplicadorTotal > 0) {
-        combinacionesGanadoras.forEach(imagenes => resaltarImagenes(imagenes));
-        var premio = apuestaActual * multiplicadorTotal;
-        creditos += premio;
-        document.getElementById("creditosTotales").innerHTML = creditos;
-        document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
-        mostrarModalVictoria("¡HAS GANADO " + premio + " CREDITOS!");
-        document.getElementById("textoTragaperras").innerHTML = "GANANCIAS: " + premio + " CREDITOS!";
-        setTimeout(() => document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!", 5000);
-
-
-    } else {
-        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!"
-    }
+    // Resalta combinaciones ganadoras
+    combinacionesGanadoras.forEach(imagenes => resaltarImagenes(imagenes));
 
     //SI SON TRES GIRAFAS ACTIVAMOS GIROS GRATIS
     if (simbolo.imagen == "assets/iconoGirafa.png" && multiplicadorTotal > 0 && activadorGiros == false) {
@@ -1137,12 +1203,16 @@ function calcularPremioCombinado(simbolo, carrete1, carrete2, carrete3, apuestaA
 
         // Esperar 2 segundos antes de mostrar el modal de giros gratis para que se vea el premio de la triple girafa
         setTimeout(() => {
-            mostrarModalVictoria("¡HAS GANADO 10 GIROS GRATIS!");
+            mostrarModalVictoria(i18next.t('girosGratis'));
             tiradasAutomaticas();
         }, 2000);
 
+
     }
 
+
+    // Devuelve el premio calculado para este símbolo
+    return apuestaActual * multiplicadorTotal;
 
 }
 
@@ -1197,14 +1267,14 @@ function tiradasAutomaticas() {
         document.getElementById("disminuirApuesta").src = "./assets/disminuirApuestaMinima.png";
         document.getElementById("aumentarApuesta").src = "./assets/aumentarApuestaMaxima.png";
         document.getElementById("tiradasAutomaticas").style.display = "none";
-        document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
+        document.getElementById("cantidadTiradas").innerHTML = i18next.t('tiradasRestantes') + tiradas;
         document.getElementById("cantidadTiradas").style.display = "flex";
         girarCarretes(carretes);
         tiradas--;
 
         intervaloTiradas = setInterval(function () {
             if (tiradas > 0) {
-                document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
+                document.getElementById("cantidadTiradas").innerHTML = i18next.t('tiradasRestantes') + tiradas;
                 girarCarretes(carretes);
                 tiradas--;
 
@@ -1218,7 +1288,7 @@ function tiradasAutomaticas() {
                 document.getElementById("tiradasAutomaticas").style.display = "flex";
                 document.getElementById("cantidadTiradas").style.display = "none";
             }
-        }, 14000); // Tiempo entre tiradas (14 segundos por si gana de tiempo al modal)
+        }, 16000); // Tiempo entre tiradas (16 segundos por si gana de tiempo al modal)
 
         //TIRADAS AUTOMATICAS COBRANDO 
     } else {
@@ -1229,22 +1299,23 @@ function tiradasAutomaticas() {
 
             document.getElementById("botonTirar").src = "./assets/tiradasAutomaticasParar.png";
             document.getElementById("tiradasAutomaticas").style.display = "none";
-            document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
+            document.getElementById("cantidadTiradas").innerHTML = i18next.t('tiradasRestantes') + tiradas;
             document.getElementById("cantidadTiradas").style.display = "flex";
             girarCarretes(carretes);
 
             // Descontar la apuesta de la primera tirada
             creditos -= apuesta;
+
             document.getElementById("creditosTotales").innerHTML = creditos;
-            document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+            document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });
 
             tiradas--;
 
 
         } else {
-            document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
+            document.getElementById("textoTragaperras").innerHTML = i18next.t('noCreditosParaApostar');
             setTimeout(() => {
-                document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+                document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
             }, 2000);
             return; // Salir si no se puede realizar la primera tirada
         }
@@ -1254,12 +1325,12 @@ function tiradasAutomaticas() {
 
             if (tiradas > 0 && apuesta <= creditos) {
 
-                document.getElementById("cantidadTiradas").innerHTML = "TIRADAS RESTANTES: " + tiradas;
+                document.getElementById("cantidadTiradas").innerHTML = i18next.t('tiradasRestantes') + tiradas;
                 girarCarretes(carretes);
                 // Descontar apuesta
                 creditos -= apuesta;
                 document.getElementById("creditosTotales").innerHTML = creditos;
-                document.getElementById("creditosInfo").innerHTML = "Creditos Actuales:" + creditos;
+                document.getElementById("creditosInfo").textContent = i18next.t('creditosActuales', { creditos: creditos });
 
                 tiradas--;
 
@@ -1272,17 +1343,13 @@ function tiradasAutomaticas() {
                 document.getElementById("tiradasAutomaticas").style.display = "flex";
                 document.getElementById("cantidadTiradas").style.display = "none";
                 if (apuesta > creditos) {
-                    document.getElementById("textoTragaperras").innerHTML = "¡NO TIENES SUFICIENTES CREDITOS PARA ESA APUESTA!";
+                    document.getElementById("textoTragaperras").innerHTML = i18next.t('noCreditosParaApostar');
                     setTimeout(() => {
-                        document.getElementById("textoTragaperras").innerHTML = "¡TIRE PARA GANAR!";
+                        document.getElementById("textoTragaperras").innerHTML = i18next.t('tirar');
                     }, 2000);
                 }
             }
-        }, 14000); // Tiempo entre tiradas (14 segundos por si gana de tiempo al modal)
+        }, 16000); // Tiempo entre tiradas (16 segundos por si gana de tiempo al modal)
     }
 
-
 }
-
-
-
