@@ -61,3 +61,6 @@ El proyecto incluye:
    
    Empieza a jugar girando los carretes con el botón o la barra espaciadora.
    Configura el idioma desde los ajustes (predeterminado: español).
+
+
+
