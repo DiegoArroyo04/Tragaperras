@@ -44,6 +44,7 @@ El proyecto incluye:
 - **CSS**: Estilos para la interfaz y las animaciones de los carretes.
 - **[i18next](https://www.i18next.com/)**: Biblioteca para la traducción multilingüe.
 
+
 ---
 
 ## Instalación y configuración
@@ -62,5 +63,7 @@ El proyecto incluye:
    Empieza a jugar girando los carretes con el botón o la barra espaciadora.
    Configura el idioma desde los ajustes (predeterminado: español).
 
-
-
+## MEJORAS PENDIENTES
+- Adaptar diseño responsive para todos los dispositivos.
+- Integración de este juego dentro de el proyecto transversal Casino que esta en desarollo.
+- Conexion con base de datos.
